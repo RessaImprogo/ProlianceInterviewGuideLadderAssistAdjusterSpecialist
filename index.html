@@ -1,216 +1,208 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Proliance — Adjuster Specialist Interview</title>
-  <style>
-/* style.css — Proliance Interview Guide — Standalone Browser Version */
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proliance — Adjuster Specialist Interview</title>
+<style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-:root {
-  --bg:#ffffff; --bg2:#f7f7f6; --bg3:#f0efed;
-  --text:#1a1a1a; --text2:#666666; --text3:#999999;
-  --border:rgba(0,0,0,0.10); --border2:rgba(0,0,0,0.18);
-  --radius:10px; --radius-sm:6px;
-  --blue-bg:#E6F1FB; --blue:#185FA5;
-  --green-bg:#EAF3DE; --green:#3B6D11;
-  --amber-bg:#FAEEDA; --amber:#BA7517;
-  --red-bg:#FCEBEB; --red:#A32D2D;
-  --purple-bg:#EEEDFE; --purple:#534AB7;
-  --teal-bg:#E1F5EE; --teal:#0F6E56;
-  --gray-bg:#F1EFE8; --gray:#5F5E5A;
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#ffffff;--bg2:#f7f7f6;--bg3:#f0efed;
+  --text:#1a1a1a;--text2:#666666;--text3:#999999;
+  --border:rgba(0,0,0,0.10);--border2:rgba(0,0,0,0.18);
+  --radius:10px;--radius-sm:6px;
+  --blue-bg:#E6F1FB;--blue:#185FA5;
+  --green-bg:#EAF3DE;--green:#3B6D11;
+  --amber-bg:#FAEEDA;--amber:#BA7517;
+  --red-bg:#FCEBEB;--red:#A32D2D;
+  --purple-bg:#EEEDFE;--purple:#534AB7;
+  --teal-bg:#E1F5EE;--teal:#0F6E56;
+  --gray-bg:#F1EFE8;--gray:#5F5E5A;
 }
+html,body{height:100%;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg2);color:var(--text);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+#login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh}
+.login-box{background:var(--bg);border:1px solid var(--border2);border-radius:14px;padding:40px 44px;width:360px;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,.08)}
+.login-logo{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--text3);margin-bottom:28px}
+.login-title{font-size:22px;font-weight:700;margin-bottom:6px}
+.login-sub{font-size:13px;color:var(--text2);margin-bottom:32px}
+.user-btns{display:flex;flex-direction:column;gap:10px}
+.user-btn{padding:12px;border-radius:var(--radius-sm);border:1px solid var(--border2);background:var(--bg);font-size:14px;font-weight:500;font-family:inherit;cursor:pointer;transition:background .13s,border-color .13s}
+.user-btn:hover{background:var(--bg2);border-color:var(--blue);color:var(--blue)}
+#app{display:none;flex-direction:column;position:fixed;inset:0;overflow:hidden}
+#app.visible{display:flex}
+.app-inner{display:flex;flex:1;overflow:hidden;min-height:0}
+.topbar{display:flex;align-items:center;gap:10px;padding:9px 16px;border-bottom:1px solid var(--border);background:var(--bg2);flex-shrink:0;flex-wrap:wrap}
+.topbar-left{display:flex;align-items:center;gap:8px;flex:1;min-width:0;flex-wrap:wrap}
+.topbar-right{display:flex;align-items:center;gap:6px}
+.topbar-logo{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--text3);white-space:nowrap}
+.cand-input{border:1px solid var(--border2);border-radius:var(--radius-sm);padding:5px 10px;font-size:13px;font-family:inherit;background:var(--bg);color:var(--text);width:160px;outline:none;transition:border-color .15s}
+.cand-input:focus{border-color:var(--blue)}
+.pill{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;white-space:nowrap}
+.flag-bar{display:flex;gap:5px}
+.flag-btn{padding:4px 11px;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid var(--border2);background:var(--bg);color:var(--text2);font-family:inherit;transition:all .13s}
+.flag-btn[data-color="green"]:hover{background:var(--green-bg);color:var(--green);border-color:var(--green)}
+.flag-btn[data-color="amber"]:hover{background:var(--amber-bg);color:var(--amber);border-color:var(--amber)}
+.flag-btn[data-color="red"]:hover{background:var(--red-bg);color:var(--red);border-color:var(--red)}
+.hist-btn,.logout-btn{padding:5px 12px;border-radius:var(--radius-sm);font-size:12px;font-family:inherit;cursor:pointer;border:1px solid var(--border2);background:var(--bg);color:var(--text2);transition:background .13s}
+.hist-btn:hover,.logout-btn:hover{background:var(--bg3)}
+.flags-strip{padding:5px 16px;background:var(--bg2);border-bottom:1px solid var(--border);display:none;flex-wrap:wrap;gap:5px;flex-shrink:0}
+.flags-strip.visible{display:flex}
+.flag-chip{font-size:11px;font-weight:500;padding:2px 9px;border-radius:10px}
+.prog-bar{height:3px;background:var(--border);flex-shrink:0}
+.prog-fill{height:100%;background:var(--blue);transition:width .3s ease}
+#sidebar{width:220px;min-width:220px;border-right:1px solid var(--border);overflow-y:auto;background:var(--bg);flex-shrink:0}
+.sb-sec{padding:12px 14px 4px;font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--text3)}
+.sb-item{display:flex;align-items:center;gap:8px;padding:7px 10px;margin:1px 6px;border-radius:var(--radius-sm);cursor:pointer;font-size:12.5px;color:var(--text2);transition:background .12s}
+.sb-item:hover{background:var(--bg2)}
+.sb-item.active{background:var(--bg2);color:var(--text);font-weight:600}
+.sb-dot{width:7px;height:7px;border-radius:50%;background:#d0d0cc;flex-shrink:0;transition:background .2s}
+.sb-item.done .sb-dot{background:var(--green)}
+.sb-item.active .sb-dot{background:var(--blue)}
+.sb-rating{margin-left:auto;font-size:11px;font-weight:700}
+.sb-divider{height:1px;background:var(--border);margin:5px 12px}
+#scroll-area{flex:1;overflow-y:auto;padding:22px 26px 60px;background:var(--bg)}
+.step-eye{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--text3);margin-bottom:5px}
+.step-title{font-size:20px;font-weight:700;color:var(--text);margin-bottom:4px}
+.step-subtitle{font-size:12px;color:var(--text3);margin-bottom:16px}
 
-html,body { height:100%; font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; background:var(--bg2); color:var(--text); font-size:14px; line-height:1.5; -webkit-font-smoothing:antialiased; }
+/* QUESTION CARD — primary visible element */
+.q-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:8px}
+.q-num{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);margin-bottom:5px}
+.q-text{font-size:15px;font-weight:600;color:var(--text);line-height:1.65;margin-bottom:10px}
+.q-followup{font-size:12.5px;color:var(--blue);font-style:italic;margin-bottom:10px;padding:7px 10px;background:var(--blue-bg);border-radius:var(--radius-sm)}
 
-/* LOGIN */
-#login-screen { display:flex; align-items:center; justify-content:center; min-height:100vh; background:var(--bg2); }
-.login-box { background:var(--bg); border:1px solid var(--border2); border-radius:14px; padding:40px 44px; width:360px; text-align:center; box-shadow:0 4px 24px rgba(0,0,0,0.08); }
-.login-logo { font-size:11px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:var(--text3); margin-bottom:28px; }
-.login-title { font-size:22px; font-weight:700; color:var(--text); margin-bottom:6px; }
-.login-sub { font-size:13px; color:var(--text2); margin-bottom:32px; }
-.user-btns { display:flex; flex-direction:column; gap:10px; }
-.user-btn { padding:12px; border-radius:var(--radius-sm); border:1px solid var(--border2); background:var(--bg); font-size:14px; font-weight:500; font-family:inherit; color:var(--text); cursor:pointer; transition:background .13s,border-color .13s; }
-.user-btn:hover { background:var(--bg2); border-color:var(--blue); color:var(--blue); }
+/* TOGGLE ROW — for listen/note/exit/followup */
+.toggle-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:2px}
+.tog-btn{padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid var(--border2);background:var(--bg2);color:var(--text3);font-family:inherit;transition:all .13s;display:flex;align-items:center;gap:4px}
+.tog-btn:hover{background:var(--bg3)}
+.tog-btn.listen-tog{border-color:var(--gray);color:var(--gray)}
+.tog-btn.note-tog{border-color:var(--amber);color:var(--amber)}
+.tog-btn.exit-tog{border-color:var(--red);color:var(--red)}
+.tog-btn.followup-tog{border-color:var(--purple);color:var(--purple)}
+.tog-btn.rule-tog{border-color:var(--red);color:var(--red)}
+.tog-panel{display:none;margin-top:8px;padding:10px 12px;border-radius:var(--radius-sm);font-size:12.5px;line-height:1.75}
+.tog-panel.visible{display:block}
+.tog-panel.listen-panel{background:var(--gray-bg);color:var(--text)}
+.tog-panel.note-panel{background:var(--amber-bg);color:var(--text)}
+.tog-panel.exit-panel{background:var(--red-bg);color:var(--text);font-style:italic;border-left:3px solid var(--red)}
+.tog-panel.followup-panel{background:var(--purple-bg);color:var(--text)}
+.tog-panel.rule-panel{background:var(--red-bg);color:var(--text);border-left:3px solid var(--red)}
+.tog-panel b{color:var(--text);font-weight:700}
 
-/* APP SHELL */
-#app { display:none; flex-direction:column; position:fixed; inset:0; overflow:hidden; }
-#app.visible { display:flex; }
-.app-inner { display:flex; flex:1; overflow:hidden; min-height:0; }
+/* CHOICE always visible */
+.choice-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:11px 14px;margin-bottom:8px}
+.choice-q{font-size:12px;font-weight:700;color:var(--text2);margin-bottom:8px;text-transform:uppercase;letter-spacing:.04em}
+.opts{display:flex;flex-wrap:wrap;gap:7px}
+.opt-btn{padding:6px 13px;border-radius:var(--radius-sm);border:1px solid var(--border2);font-size:13px;font-family:inherit;cursor:pointer;background:var(--bg);color:var(--text);transition:all .13s}
+.opt-btn:hover{background:var(--bg3)}
+.opt-btn.sel-g{border-color:var(--green);background:var(--green-bg);color:var(--green);font-weight:700}
+.opt-btn.sel-r{border-color:var(--red);background:var(--red-bg);color:var(--red);font-weight:700}
+.opt-btn.sel-a{border-color:var(--amber);background:var(--amber-bg);color:var(--amber);font-weight:700}
+.opt-btn.sel-b{border-color:var(--blue);background:var(--blue-bg);color:var(--blue);font-weight:700}
 
-/* TOP BAR */
-.topbar { display:flex; align-items:center; gap:10px; padding:9px 16px; border-bottom:1px solid var(--border); background:var(--bg2); flex-shrink:0; flex-wrap:wrap; }
-.topbar-left { display:flex; align-items:center; gap:8px; flex:1; min-width:0; flex-wrap:wrap; }
-.topbar-right { display:flex; align-items:center; gap:6px; }
-.topbar-logo { font-size:11px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--text3); white-space:nowrap; }
-.cand-input { border:1px solid var(--border2); border-radius:var(--radius-sm); padding:5px 10px; font-size:13px; font-family:inherit; background:var(--bg); color:var(--text); width:160px; outline:none; transition:border-color .15s; }
-.cand-input:focus { border-color:var(--blue); }
-.pill { font-size:11px; font-weight:700; padding:3px 10px; border-radius:20px; white-space:nowrap; }
-.flag-bar { display:flex; gap:5px; }
-.flag-btn { padding:4px 11px; border-radius:20px; font-size:11px; font-weight:600; cursor:pointer; border:1px solid var(--border2); background:var(--bg); color:var(--text2); font-family:inherit; transition:all .13s; }
-.flag-btn:hover { background:var(--bg2); }
-.flag-btn[data-color="green"]:hover { background:var(--green-bg); color:var(--green); border-color:var(--green); }
-.flag-btn[data-color="amber"]:hover { background:var(--amber-bg); color:var(--amber); border-color:var(--amber); }
-.flag-btn[data-color="red"]:hover   { background:var(--red-bg);   color:var(--red);   border-color:var(--red); }
-.hist-btn,.logout-btn { padding:5px 12px; border-radius:var(--radius-sm); font-size:12px; font-family:inherit; cursor:pointer; border:1px solid var(--border2); background:var(--bg); color:var(--text2); transition:background .13s; }
-.hist-btn:hover,.logout-btn:hover { background:var(--bg3); }
+.exit-block{border-left:3px solid var(--red);background:var(--red-bg);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:12px 14px;margin-top:8px}
+.exit-lbl{font-size:10px;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px}
+.exit-say{font-size:13px;color:var(--text);line-height:1.7;font-style:italic}
+.partial-note{border-left:3px solid var(--amber);background:var(--amber-bg);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:10px 14px;margin-top:8px;font-size:13px;color:var(--text);line-height:1.65}
+.track-badge{display:inline-flex;padding:4px 11px;border-radius:var(--radius-sm);font-size:12px;font-weight:700;margin-bottom:13px}
+.tb-exp{background:var(--blue-bg);color:var(--blue)}
+.tb-partial{background:var(--teal-bg);color:var(--teal)}
+.tb-noexp{background:var(--amber-bg);color:var(--amber)}
 
-/* FLAGS STRIP */
-.flags-strip { padding:5px 16px; background:var(--bg2); border-bottom:1px solid var(--border); display:none; flex-wrap:wrap; gap:5px; flex-shrink:0; }
-.flags-strip.visible { display:flex; }
-.flag-chip { font-size:11px; font-weight:500; padding:2px 9px; border-radius:10px; }
+.section-header{padding:8px 0 4px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);margin-top:6px;margin-bottom:4px;border-top:1px solid var(--border)}
+.section-header:first-child{border-top:none;margin-top:0}
 
-/* PROGRESS */
-.prog-bar { height:3px; background:var(--border); flex-shrink:0; }
-.prog-fill { height:100%; background:var(--blue); transition:width .3s ease; }
+.rating-row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.r-btn{padding:7px 16px;border-radius:var(--radius-sm);border:1px solid var(--border2);font-size:13px;font-family:inherit;cursor:pointer;background:var(--bg);color:var(--text2);transition:all .13s}
+.r-btn:hover{background:var(--bg2)}
+.r-s.on{border-color:var(--green);background:var(--green-bg);color:var(--green);font-weight:700}
+.r-c.on{border-color:var(--amber);background:var(--amber-bg);color:var(--amber);font-weight:700}
+.r-e.on{border-color:var(--red);background:var(--red-bg);color:var(--red);font-weight:700}
+.notes-lbl{font-size:11px;font-weight:600;color:var(--text3);margin:13px 0 5px}
+textarea{width:100%;border:1px solid var(--border2);border-radius:var(--radius-sm);padding:9px 11px;font-size:13px;font-family:inherit;color:var(--text);background:var(--bg);resize:vertical;min-height:64px;line-height:1.6;outline:none;transition:border-color .15s}
+textarea:focus{border-color:var(--blue)}
+.nav-row{display:flex;gap:9px;margin-top:20px}
+.btn-primary{padding:9px 20px;border-radius:var(--radius-sm);background:#1a1a1a;color:#fff;border:none;font-size:13px;font-family:inherit;font-weight:700;cursor:pointer;transition:opacity .15s}
+.btn-primary:hover{opacity:.82}
+.btn-sec{padding:9px 14px;border-radius:var(--radius-sm);background:transparent;color:var(--text2);border:1px solid var(--border2);font-size:13px;font-family:inherit;cursor:pointer;transition:background .13s}
+.btn-sec:hover{background:var(--bg2)}
 
-/* SIDEBAR */
-#sidebar { width:220px; min-width:220px; border-right:1px solid var(--border); overflow-y:auto; background:var(--bg); flex-shrink:0; }
-.sb-sec { padding:12px 14px 4px; font-size:10px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--text3); }
-.sb-item { display:flex; align-items:center; gap:8px; padding:7px 10px; margin:1px 6px; border-radius:var(--radius-sm); cursor:pointer; font-size:12.5px; color:var(--text2); transition:background .12s; }
-.sb-item:hover { background:var(--bg2); }
-.sb-item.active { background:var(--bg2); color:var(--text); font-weight:600; }
-.sb-dot { width:7px; height:7px; border-radius:50%; background:#d0d0cc; flex-shrink:0; transition:background .2s; }
-.sb-item.done .sb-dot { background:var(--green); }
-.sb-item.active .sb-dot { background:var(--blue); }
-.sb-rating { margin-left:auto; font-size:11px; font-weight:700; }
-.sb-divider { height:1px; background:var(--border); margin:5px 12px; }
+/* ROLEPLAY TOGGLES */
+.rp-section{margin-bottom:8px;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.rp-toggle{width:100%;background:var(--bg2);border:none;padding:11px 15px;text-align:left;font-family:inherit;font-size:13px;font-weight:600;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:background .13s}
+.rp-toggle:hover{background:var(--bg3)}
+.rp-arrow{font-size:10px;color:var(--text3);transition:transform .2s}
+.rp-toggle.open .rp-arrow{transform:rotate(180deg)}
+.rp-body{display:none;padding:13px 15px;border-top:1px solid var(--border)}
+.rp-body.visible{display:block}
+.rp-setup{background:#1a1a1a;color:#f0f0ee;border-radius:var(--radius-sm);padding:12px 14px;font-size:13px;line-height:1.8;margin-bottom:10px}
+.rp-setup b{color:#fff}
+.rp-rule{border-left:3px solid var(--red);background:var(--red-bg);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:9px 12px;font-size:12.5px;color:var(--text);line-height:1.65;margin-bottom:10px}
+.rp-line{font-size:14px;font-weight:600;color:var(--text);line-height:1.6;margin-bottom:10px;padding:10px 13px;background:var(--blue-bg);border-radius:var(--radius-sm);border-left:3px solid var(--blue)}
+.rp-watch{font-size:12.5px;color:var(--text2);margin-bottom:8px;line-height:1.65}
+.rp-watch b{color:var(--text)}
+.rp-signals{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.rp-pass{background:var(--green-bg);border-radius:var(--radius-sm);padding:10px 12px}
+.rp-fail{background:var(--red-bg);border-radius:var(--radius-sm);padding:10px 12px}
+.rp-signal-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px}
+.rp-pass .rp-signal-lbl{color:var(--green)}
+.rp-fail .rp-signal-lbl{color:var(--red)}
+.rp-signal-items{font-size:12px;line-height:1.8;color:var(--text)}
+.rp-jolt{background:#1a1a1a;border-radius:var(--radius-sm);padding:12px 14px}
+.rp-jolt-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#888;margin-bottom:6px}
+.rp-jolt-line{font-size:13px;color:#f0f0ee;line-height:1.7;font-style:italic;margin-bottom:8px}
+.rp-jolt-tests{font-size:12px;color:#aaa;line-height:1.75}
+.rp-jolt-tests b{color:#ddd}
 
-/* SCROLL AREA */
-#scroll-area { flex:1; overflow-y:auto; padding:22px 26px 60px; background:var(--bg); }
-.step-eye { font-size:10px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--text3); margin-bottom:5px; }
-.step-title { font-size:20px; font-weight:700; color:var(--text); margin-bottom:18px; }
-
-/* CARDS */
-.card { background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:14px 16px; margin-bottom:10px; position:relative; transition:border-color .15s; }
-.card:hover { border-color:var(--border2); }
-.card:hover .edit-hint { opacity:1; }
-.edit-hint { position:absolute; top:8px; right:10px; font-size:10px; color:var(--text3); opacity:0; transition:opacity .2s; pointer-events:none; }
-.tag { display:inline-block; font-size:10px; font-weight:700; padding:2px 7px; border-radius:4px; margin-bottom:8px; letter-spacing:.04em; }
-.t-ask    { background:var(--green-bg);  color:var(--green); }
-.t-say    { background:var(--blue-bg);   color:var(--blue); }
-.t-note   { background:var(--amber-bg);  color:var(--amber); }
-.t-rule   { background:var(--red-bg);    color:var(--red); }
-.t-listen { background:var(--gray-bg);   color:var(--gray); }
-.t-exit   { background:var(--red-bg);    color:var(--red); }
-.t-branch { background:var(--purple-bg); color:var(--purple); }
-.t-context{ background:var(--teal-bg);   color:var(--teal); }
-.q-text { font-size:15px; font-weight:600; color:var(--text); line-height:1.65; }
-.kv-text { font-size:13px; color:var(--text2); line-height:1.75; }
-.kv-text b,.kv-text strong { color:var(--text); font-weight:700; }
-.editable { outline:none; border-radius:4px; }
-.editable:focus { background:#f0f7ff; outline:2px solid var(--blue); outline-offset:3px; }
-
-/* CHOICES */
-.choice-card { background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius); padding:13px 15px; margin-bottom:10px; }
-.choice-q { font-size:13px; font-weight:700; color:var(--text); margin-bottom:10px; }
-.opts { display:flex; flex-wrap:wrap; gap:7px; }
-.opt-btn { padding:7px 14px; border-radius:var(--radius-sm); border:1px solid var(--border2); font-size:13px; font-family:inherit; cursor:pointer; background:var(--bg); color:var(--text); transition:all .13s; }
-.opt-btn:hover { background:var(--bg3); }
-.opt-btn.sel-g { border-color:var(--green); background:var(--green-bg); color:var(--green); font-weight:700; }
-.opt-btn.sel-r { border-color:var(--red);   background:var(--red-bg);   color:var(--red);   font-weight:700; }
-.opt-btn.sel-a { border-color:var(--amber); background:var(--amber-bg); color:var(--amber); font-weight:700; }
-.opt-btn.sel-b { border-color:var(--blue);  background:var(--blue-bg);  color:var(--blue);  font-weight:700; }
-
-/* EXIT BLOCK */
-.exit-block { border-left:3px solid var(--red); background:var(--red-bg); border-radius:0 var(--radius-sm) var(--radius-sm) 0; padding:12px 14px; margin-top:10px; }
-.exit-lbl { font-size:10px; font-weight:700; color:var(--red); text-transform:uppercase; letter-spacing:.05em; margin-bottom:6px; }
-.exit-say { font-size:13px; color:var(--text); line-height:1.7; font-style:italic; }
-.partial-note { border-left:3px solid var(--amber); background:var(--amber-bg); border-radius:0 var(--radius-sm) var(--radius-sm) 0; padding:10px 14px; margin-top:8px; font-size:13px; color:var(--text); line-height:1.65; }
-.track-badge { display:inline-flex; padding:4px 11px; border-radius:var(--radius-sm); font-size:12px; font-weight:700; margin-bottom:13px; }
-.tb-exp { background:var(--blue-bg); color:var(--blue); }
-.tb-partial { background:var(--teal-bg); color:var(--teal); }
-.tb-noexp { background:var(--amber-bg); color:var(--amber); }
-
-/* RATING */
-.rating-row { display:flex; gap:8px; margin-top:10px; flex-wrap:wrap; }
-.r-btn { padding:7px 16px; border-radius:var(--radius-sm); border:1px solid var(--border2); font-size:13px; font-family:inherit; cursor:pointer; background:var(--bg); color:var(--text2); transition:all .13s; }
-.r-btn:hover { background:var(--bg2); }
-.r-s.on { border-color:var(--green); background:var(--green-bg); color:var(--green); font-weight:700; }
-.r-c.on { border-color:var(--amber); background:var(--amber-bg); color:var(--amber); font-weight:700; }
-.r-e.on { border-color:var(--red);   background:var(--red-bg);   color:var(--red);   font-weight:700; }
-
-/* NOTES */
-.notes-lbl { font-size:11px; font-weight:600; color:var(--text3); margin:13px 0 5px; }
-textarea { width:100%; border:1px solid var(--border2); border-radius:var(--radius-sm); padding:9px 11px; font-size:13px; font-family:inherit; color:var(--text); background:var(--bg); resize:vertical; min-height:64px; line-height:1.6; outline:none; transition:border-color .15s; }
-textarea:focus { border-color:var(--blue); }
-
-/* NAV */
-.nav-row { display:flex; gap:9px; margin-top:20px; }
-.btn-primary { padding:9px 20px; border-radius:var(--radius-sm); background:#1a1a1a; color:#ffffff; border:none; font-size:13px; font-family:inherit; font-weight:700; cursor:pointer; transition:opacity .15s; }
-.btn-primary:hover { opacity:.82; }
-.btn-sec { padding:9px 14px; border-radius:var(--radius-sm); background:transparent; color:var(--text2); border:1px solid var(--border2); font-size:13px; font-family:inherit; cursor:pointer; transition:background .13s; }
-.btn-sec:hover { background:var(--bg2); }
-
-/* SCORE */
-.sum-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:11px; }
-.sum-card { background:var(--bg2); border-radius:var(--radius-sm); padding:10px 12px; }
-.sum-lbl { font-size:11px; font-weight:600; color:var(--text3); margin-bottom:3px; }
-.sum-val { font-size:17px; font-weight:700; }
-
-/* DEBRIEF */
-.debrief-q { background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:14px 16px; margin-bottom:10px; }
-.db-lbl { font-size:10px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--purple); margin-bottom:6px; }
-.db-q { font-size:14px; font-weight:600; color:var(--text); margin-bottom:10px; line-height:1.55; }
-.d-opts { display:flex; flex-wrap:wrap; gap:7px; }
-.d-btn { padding:7px 13px; border-radius:var(--radius-sm); border:1px solid var(--border2); font-size:13px; font-family:inherit; cursor:pointer; background:var(--bg); color:var(--text); transition:all .13s; }
-.d-btn:hover { background:var(--bg2); }
-.d-g { border-color:var(--green); background:var(--green-bg); color:var(--green); font-weight:700; }
-.d-a { border-color:var(--amber); background:var(--amber-bg); color:var(--amber); font-weight:700; }
-.d-r { border-color:var(--red);   background:var(--red-bg);   color:var(--red);   font-weight:700; }
-
-/* VERDICT */
-.verdict-box { border-radius:var(--radius); padding:18px 20px; margin-top:14px; border:1px solid var(--border); }
-.verdict-pending { font-size:12.5px; color:var(--text3); padding:11px 14px; border:1px dashed var(--border2); border-radius:var(--radius-sm); margin-top:10px; }
-
-/* BUTTONS */
-.pdf-btn { padding:9px 18px; border-radius:var(--radius-sm); background:var(--blue); color:#ffffff; border:none; font-size:13px; font-family:inherit; font-weight:700; cursor:pointer; margin-top:14px; margin-right:8px; transition:opacity .15s; }
-.pdf-btn:hover { opacity:.85; }
-.save-cand-btn { padding:9px 18px; border-radius:var(--radius-sm); background:var(--green); color:#ffffff; border:none; font-size:13px; font-family:inherit; font-weight:700; cursor:pointer; margin-top:14px; transition:opacity .15s; }
-.save-cand-btn:hover { opacity:.85; }
-
-/* MODAL */
-.modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:100; align-items:center; justify-content:center; }
-.modal-overlay.open { display:flex; }
-.modal { background:var(--bg); border-radius:var(--radius); padding:26px; width:580px; max-width:94vw; max-height:80vh; overflow-y:auto; box-shadow:0 8px 40px rgba(0,0,0,.14); }
-.modal-title { font-size:16px; font-weight:700; margin-bottom:16px; }
-.modal-close { float:right; background:none; border:none; font-size:20px; cursor:pointer; color:var(--text2); line-height:1; }
-.hist-item { border:1px solid var(--border); border-radius:var(--radius-sm); padding:12px 14px; margin-bottom:8px; cursor:pointer; transition:background .13s; }
-.hist-item:hover { background:var(--bg2); }
-.hist-name { font-size:14px; font-weight:700; }
-.hist-meta { font-size:12px; color:var(--text2); margin-top:3px; }
-.hist-empty { font-size:13px; color:var(--text3); text-align:center; padding:28px; }
-
-/* COMP TABLE */
-.comp-table { width:100%; border-collapse:collapse; font-size:13px; margin-top:9px; }
-.comp-table th { text-align:left; padding:6px 10px; background:var(--bg2); color:var(--text2); font-weight:700; border-bottom:1px solid var(--border); font-size:11px; }
-.comp-table td { padding:6px 10px; border-bottom:1px solid var(--border); color:var(--text); }
-.up { color:var(--green); font-weight:700; }
-.dn { color:var(--red);   font-weight:700; }
-
-@media (max-width:640px) { #sidebar { display:none; } .cand-input { width:110px; } }
-
+.sum-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:11px}
+.sum-card{background:var(--bg2);border-radius:var(--radius-sm);padding:10px 12px}
+.sum-lbl{font-size:11px;font-weight:600;color:var(--text3);margin-bottom:3px}
+.sum-val{font-size:17px;font-weight:700}
+.debrief-q{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:10px}
+.db-lbl{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--purple);margin-bottom:6px}
+.db-q{font-size:14px;font-weight:600;color:var(--text);margin-bottom:10px;line-height:1.55}
+.d-opts{display:flex;flex-wrap:wrap;gap:7px}
+.d-btn{padding:7px 13px;border-radius:var(--radius-sm);border:1px solid var(--border2);font-size:13px;font-family:inherit;cursor:pointer;background:var(--bg);color:var(--text);transition:all .13s}
+.d-btn:hover{background:var(--bg2)}
+.d-g{border-color:var(--green);background:var(--green-bg);color:var(--green);font-weight:700}
+.d-a{border-color:var(--amber);background:var(--amber-bg);color:var(--amber);font-weight:700}
+.d-r{border-color:var(--red);background:var(--red-bg);color:var(--red);font-weight:700}
+.verdict-box{border-radius:var(--radius);padding:18px 20px;margin-top:14px;border:1px solid var(--border)}
+.verdict-pending{font-size:12.5px;color:var(--text3);padding:11px 14px;border:1px dashed var(--border2);border-radius:var(--radius-sm);margin-top:10px}
+.pdf-btn{padding:9px 18px;border-radius:var(--radius-sm);background:var(--blue);color:#fff;border:none;font-size:13px;font-family:inherit;font-weight:700;cursor:pointer;margin-top:14px;margin-right:8px;transition:opacity .15s}
+.pdf-btn:hover{opacity:.85}
+.save-cand-btn{padding:9px 18px;border-radius:var(--radius-sm);background:var(--green);color:#fff;border:none;font-size:13px;font-family:inherit;font-weight:700;cursor:pointer;margin-top:14px;transition:opacity .15s}
+.save-cand-btn:hover{opacity:.85}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:100;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:var(--bg);border-radius:var(--radius);padding:26px;width:580px;max-width:94vw;max-height:80vh;overflow-y:auto;box-shadow:0 8px 40px rgba(0,0,0,.14)}
+.modal-title{font-size:16px;font-weight:700;margin-bottom:16px}
+.modal-close{float:right;background:none;border:none;font-size:20px;cursor:pointer;color:var(--text2);line-height:1}
+.hist-item{border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:8px;cursor:pointer;transition:background .13s}
+.hist-item:hover{background:var(--bg2)}
+.hist-name{font-size:14px;font-weight:700}
+.hist-meta{font-size:12px;color:var(--text2);margin-top:3px}
+.hist-empty{font-size:13px;color:var(--text3);text-align:center;padding:28px}
+.comp-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:9px}
+.comp-table th{text-align:left;padding:6px 10px;background:var(--bg2);color:var(--text2);font-weight:700;border-bottom:1px solid var(--border);font-size:11px}
+.comp-table td{padding:6px 10px;border-bottom:1px solid var(--border);color:var(--text)}
+.up{color:var(--green);font-weight:700}.dn{color:var(--red);font-weight:700}
+@media(max-width:640px){#sidebar{display:none}.cand-input{width:110px}}
 </style>
 </head>
 <body>
 
-<!-- LOGIN -->
 <div id="login-screen">
   <div class="login-box">
     <div class="login-logo">Proliance General Contractors</div>
     <div class="login-title">Interview Guide</div>
-    <div class="login-sub">Adjuster Specialist · Select your name to continue</div>
+    <div class="login-sub">Adjuster Specialist · Select your name</div>
     <div class="user-btns" id="user-btns"></div>
   </div>
 </div>
 
-<!-- APP -->
 <div id="app">
-
-  <!-- TOP BAR -->
   <div class="topbar">
     <div class="topbar-left">
       <span class="topbar-logo">Proliance</span>
@@ -229,22 +221,14 @@ textarea:focus { border-color:var(--blue); }
       <button class="logout-btn" onclick="logout()">Log out</button>
     </div>
   </div>
-
-  <!-- FLAGS STRIP -->
   <div class="flags-strip" id="flags-strip"></div>
-
-  <!-- PROGRESS -->
   <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
-
-  <!-- BODY -->
   <div class="app-inner">
     <div id="sidebar"></div>
     <div id="scroll-area"></div>
   </div>
-
 </div>
 
-<!-- HISTORY MODAL -->
 <div class="modal-overlay" id="hist-modal" onclick="if(event.target===this)closeHistory()">
   <div class="modal">
     <button class="modal-close" onclick="closeHistory()">×</button>
@@ -253,993 +237,514 @@ textarea:focus { border-color:var(--blue); }
   </div>
 </div>
 
-
 <script>
-// data.js — All script content lives here. Edit freely.
-// Double-click any card in the app to edit inline too.
+// ── DATA ──────────────────────────────────────────────────────────────────────
+// Each step has: questions[], choices[], extras (listen/note/exit/followup per question), roleplay flag
+// questions: [{num, label, text, followup?, alwaysShow?}]
+// extras: [{qIdx, type:'listen'|'note'|'exit'|'followup'|'rule', text}]
+// choices: [{key, question, options:[{val,label,color}]}]
 
-const SCRIPT_DATA = {
-  steps: [
-    {
-      id: 'consent',
-      label: 'Comp consent',
-      section: 'Fast filter',
-      cards: [
-        { type: 'ask', text: 'Before we go any further — I want to be upfront with you, [name]. Since you applied, we\'ve updated our compensation structure. The base moved from $900 to $800 weekly, but the performance payouts increased across the board. Are you still happy to move forward under the new structure?' },
-        { type: 'note', text: 'If they ask about the breakdown — toggle the comp table. If hesitant or no — exit immediately. No extra handling needed.' },
-      ],
-      compTable: true,
-      choices: [
-        { key: 'showTable', question: 'Did they ask about the breakdown?', options: [{ val: 'yes', label: 'Yes — show table', color: 'blue' }, { val: 'no', label: 'No — moving on', color: 'green' }] },
-        { key: 'consent', question: 'Their response?', options: [{ val: 'yes', label: 'Yes — proceed', color: 'green' }, { val: 'hesitant', label: 'Hesitant', color: 'red' }, { val: 'no', label: 'No — opts out', color: 'red' }] },
-      ],
-      exits: {
-        hesitant: 'Totally fair, [name] — I appreciate you being upfront about that. No pressure at all. If anything changes down the road, feel free to reach back out.',
-        no: 'Totally fair, [name] — I appreciate you being upfront about that. No pressure at all. If anything changes down the road, feel free to reach back out.',
-      }
-    },
-    {
-      id: 'intent',
-      label: 'Intentionality',
-      section: 'Fast filter',
-      cards: [
-        { type: 'ask', text: '[name], what made you apply for this role specifically — what caught your attention?' },
-        { type: 'note', text: 'Listening for two things: did [name] mention <b>public adjusting or this specific role by name</b>, and can they explain <b>why this direction</b> rather than something else.' },
-        { type: 'listen', text: '<b>Intentional:</b> Names the company, the role, or the field. Knows what a public adjuster does. Applied to <b>similar roles in the same space</b> — still counts.<br><b>Spray and pray:</b> "I\'ve been applying to a lot of things" — <b>can\'t say why this over others</b>.' },
-      ],
-      choices: [
-        { key: 'intent', question: 'How did they answer?', options: [{ val: 'intentional', label: 'Intentional', color: 'green' }, { val: 'spray', label: 'Spray and pray', color: 'red' }] },
-      ],
-      exits: {
-        spray: '[name], we\'re specifically looking for people who\'ve researched this space and are moving toward it with a clear reason — it makes a big difference in how people handle the role long-term. I don\'t think this is the right timing.',
-      }
-    },
-    {
-      id: 'background',
-      label: 'Background read',
-      section: 'Fast filter',
-      cards: [
-        { type: 'ask', text: '[name], walk me through your most recent role — what you were doing day to day and how long you were there.' },
-        { type: 'ask', text: 'What did you enjoy most about it?' },
-        { type: 'ask', text: 'What parts did you find most challenging?' },
-        { type: 'ask', text: 'And what eventually led you to move on?' },
-        { type: 'listen', text: '<b>Applicable:</b> field work, roofing, inspection, insurance, property-related, client-facing outdoors.<br><b>Red flags:</b> <b>blame-heavy</b>, vague with no ownership, <b>dismissive of former team or manager</b>. How [name] talks about people tells you more than the role itself.' },
-      ],
-      choices: [
-        { key: 'exp', question: 'Applicable experience?', options: [{ val: 'yes', label: 'Field / inspection / roofing', color: 'green' }, { val: 'partial', label: 'Partial — some transferable', color: 'amber' }, { val: 'no', label: 'No relevant background', color: 'red' }] },
-      ],
-      exits: {
-        no: '[name], this role requires you to be field-ready from day one — rooftops, ladders, inspections under pressure. Without a background that gets you close to that, the ramp-up is too steep for where we are right now. I don\'t want to set you up for a tough situation.',
-      },
-      partialNote: 'Partial track: Continue — but pay closer attention in <b>Field Readiness</b> (how physical are they really?) and <b>Learning Speed</b> (can they close the gap fast without hand-holding?). Those two sections carry more weight for [name].'
-    },
-    {
-      id: 'gap',
-      label: 'Gap & motivation',
-      section: 'Fast filter',
-      cards: [
-        { type: 'ask', text: '[name], what\'s not working anymore — what actually made you start looking?' },
-        { type: 'rule', text: 'Mirror back exactly what [name] said. <b>Repeat their key words — don\'t paraphrase.</b> This prompts them to go deeper on their own.' },
-      ],
-      choices: [
-        { key: 'gap', question: 'Is the pain clear and specific?', options: [{ val: 'clear', label: 'Clear — real specific pain', color: 'green' }, { val: 'vague', label: 'Vague — nothing urgent', color: 'amber' }] },
-      ],
-      vagueFollowup: {
-        choices: [{ key: 'leavingReason', question: 'What\'s driving the move?', options: [{ val: 'financial', label: 'Financial', color: 'blue' }, { val: 'growth', label: 'Growth', color: 'blue' }, { val: 'environment', label: 'Environment / challenge', color: 'blue' }, { val: 'unclear', label: 'No real reason', color: 'red' }] }],
-        exits: { unclear: '[name], if you can\'t name what\'s not working yet, this role is going to feel like a gamble — and that\'s not fair to you. Take some time to get clear on what you\'re actually moving toward. If that becomes clear, feel free to reach back out.' },
-        financial: {
-          cards: [
-            { type: 'ask', text: '[name], what specifically about your income right now isn\'t working?' },
-            { type: 'listen', text: 'You know pain when you hear it. <b>Real pain = specific.</b> Vague = not hungry enough yet.' },
-          ],
-          choices: [{ key: 'finPain', question: 'Can they name it specifically?', options: [{ val: 'yes', label: 'Yes — specific', color: 'green' }, { val: 'no', label: 'No — vague', color: 'red' }] }],
-          exits: { no: '[name], if the urgency isn\'t there yet, this role is going to feel optional — and optional doesn\'t work here. Let\'s pause for now.' },
-          urgency: {
-            cards: [{ type: 'ask', text: 'Does this need to change now — or is next month okay?' }],
-            choices: [{ key: 'urgency', question: 'Urgency?', options: [{ val: 'now', label: 'Needs to change now', color: 'green' }, { val: 'later', label: 'Eventually / not urgent', color: 'red' }] }],
-            exits: { later: '[name], if the timing isn\'t urgent, this role is going to be hard to stay committed to when things get tough. I\'d rather you come back when it matters. Let\'s pause here.' }
-          }
-        },
-        growth: {
-          cards: [
-            { type: 'ask', text: '[name], how did you realize you weren\'t growing in your current role?' },
-            { type: 'ask', text: 'What is it specifically that you want to learn or develop moving forward?' },
-            { type: 'ask', text: 'And why is that important to you — for your career long term?' },
-            { type: 'listen', text: '<b>Real ceiling = specific moment or realization.</b> "I just feel like I could do more" = aspirational, not structural. You need a <b>named gap</b> and a <b>named direction</b>.' },
-          ]
-        },
-        environment: {
-          cards: [
-            { type: 'ask', text: '[name], what about your current role feels too easy or not really pushing you anymore?' },
-            { type: 'ask', text: 'When was the last time you put yourself into something uncomfortable — not because you had to, but because you chose to?' },
-            { type: 'listen', text: '<b>Boredom = passive</b> (stopped engaging). <b>Outgrown = active</b> (pushed as far as the role allows and hit the wall). Very different people.' },
-          ]
-        }
-      }
-    },
-    {
-      id: 'roleexplain',
-      label: 'Role explanation',
-      section: 'Vetting',
-      noExpCards: [
-        { type: 'context', text: '<b>The problem:</b> When a homeowner experiences storm damage — hail, wind, weather — they file a claim. The insurance company sends their own adjuster to inspect the property and decide what gets approved.<br><br>Here\'s the issue: <b>adjusters manage hundreds of claims.</b> They move fast. Legitimate damage gets missed — not always on purpose, but it happens constantly.<br><br><b>Who we are:</b> Proliance is a public adjusting company. We work for the homeowner — not the insurance company.<br><br><b>What you\'d actually do:</b> You arrive at the property before the adjuster. You inspect the roof and all exterior areas, take detailed photos and notes, and then you walk the property with the adjuster — making sure everything gets properly reviewed and documented before a decision is made.<br><br><b>The goal isn\'t to argue.</b> It\'s to make sure the inspection is thorough and accurate. Most homeowners have no idea what storm damage looks like or what to ask for. You\'re the person who bridges that gap and protects their interests.' },
-      ],
-      expCards: [
-        { type: 'context', text: '<b>The problem:</b> Adjusters handle high claim volumes. Inspections move quickly — and legitimate damage gets missed or underdocumented. Homeowners don\'t know what they\'re entitled to.<br><br><b>Proliance works for the homeowner.</b> We\'re on their side of the table — not the carrier\'s.<br><br><b>Your role:</b> You\'re on the property before the adjuster arrives. You document everything. Then you walk it with them — making sure nothing gets missed or minimized before the decision is made. <b>You\'re not arguing. You\'re ensuring accuracy.</b>' },
-      ]
-    },
-    {
-      id: 'rolefit',
-      label: 'Role fit',
-      section: 'Vetting',
-      rated: true,
-      cards: [
-        { type: 'ask', text: '[name], when you hear that — accurate, thorough, but also able to stand your ground professionally when someone disagrees — how does that land for you?' },
-        { type: 'listen', text: '<b>Strong:</b> Balanced and grounded — comfortable with the tension between being firm and professional.<br><b>Caution:</b> <b>Aggressive framing</b> — ego risk.<br><b>Exit:</b> <b>Passive framing</b> — won\'t hold ground when pushed.' },
-      ],
-      exitScript: '[name], this role sits right in the middle — not passive, not aggressive. Not everyone enjoys that balance, and I think it may not be the right fit.'
-    },
-    {
-      id: 'pressure',
-      label: 'Pressure test',
-      section: 'Vetting',
-      rated: true,
-      cards: [
-        { type: 'ask', text: '[name], you\'re walking a property with an adjuster. You point something out and they say: "No, that\'s just wear and tear." How do you handle that?' },
-        { type: 'rule', text: 'While [name] is <b>mid-answer</b> — interrupt: <i>"Yeah but I\'ve seen hundreds of these — that\'s not storm damage."</i> Then <b>stop. Say nothing.</b> Watch what happens. <b>This is the single most important signal in the entire interview.</b>' },
-        { type: 'listen', text: '<b>Strong:</b> Stays calm, structured, guides — doesn\'t fight or fold.<br><b>Caution:</b> Starts well but escalates when interrupted.<br><b>Exit:</b> Goes aggressive immediately, OR folds and drops it completely.' },
-      ],
-      expCards: [
-        { type: 'branch', label: 'EXPERIENCED TRACK — adjuster roleplay', text: '<b>Context to set:</b> "Our role is to make sure nothing gets missed. Adjusters handle high volumes — sometimes damage gets interpreted differently or overlooked. We walk the property with them and make sure everything is fully considered before a decision is made."' },
-        { type: 'ask', text: 'You\'ve been on the adjuster side making the call. If you were now on the other side — walking the property with the adjuster — and you saw something you believed warranted a full replacement, but the adjuster was leaning toward a repair… what would you do?' },
-        { type: 'ask', text: 'In that situation — do you stay in the conversation and walk them through it, or do you note it and let the adjuster make the final call?' },
-        { type: 'ask', text: 'Tell me about a real time in your adjuster role where someone disagreed with your assessment — what did they say, and how did you respond?' },
-        { type: 'ask', text: 'Did they change their decision — or did it stay the same?' },
-        { type: 'ask', text: 'What did you say that influenced that outcome?' },
-      ],
-      exitScript: 'Aggressive: "[name], this role needs more composure than force — you\'d be representing a homeowner, and escalating kills credibility. I don\'t think it\'s the right fit." / Passive: "[name], this role requires holding your ground consistently — the adjuster won\'t always push back gently. I don\'t think it\'s the right fit."'
-    },
-    {
-      id: 'conviction',
-      label: 'Conviction',
-      section: 'Vetting',
-      rated: true,
-      cards: [
-        { type: 'ask', text: '[name], what makes you confident enough to stand your ground — especially when someone more experienced is disagreeing with you?' },
-        { type: 'listen', text: '<b>Strong:</b> Confidence rooted in <b>observation, evidence, or methodology</b> — not personality.<br><b>Exit:</b> "I\'m just confident" with <b>no substance behind it</b>. Confidence without understanding breaks down under real pushback.' },
-      ],
-      expCards: [
-        { type: 'ask', text: 'When you see something wrong on a claim, [name] — do you try to change the outcome, or do you document it and move on? Which one do you actually do most of the time?' },
-        { type: 'ask', text: 'Walk me through a real example — step by step. What did you say, what did they do, and what happened?' },
-        { type: 'note', text: 'This is your <b>influence vs. report filter.</b> Candidates who only report without influencing are <b>not right for this role.</b> You need someone who stays in the conversation.' },
-      ],
-      exitScript: '[name], confidence here comes from understanding the damage — not from personality alone. Without that foundation, the role gets really hard really fast. I think there\'s a gap there.'
-    },
-    {
-      id: 'field',
-      label: 'Field readiness',
-      section: 'Vetting',
-      rated: true,
-      cards: [
-        { type: 'ask', text: '[name], on a scale of 1–10, how comfortable are you on a steep roof? What\'s the highest you\'ve worked at before?' },
-        { type: 'note', text: '<b>Anyone who answers 7+ with no actual story is inflating.</b> A real number comes with a real memory.' },
-      ],
-      expCards: [
-        { type: 'ask', text: 'How frequently were you going up on roofs — daily, weekly, occasional?' },
-        { type: 'ask', text: 'Walk me through your stamina for it — a full day of rooftop inspections back to back. What\'s that like physically for you?' },
-        { type: 'ask', text: 'What\'s the worst situation you\'ve been in on top of a roof — weather, condition, anything? What happened and how did you handle it?' },
-        { type: 'listen', text: '<b>Strong experienced:</b> Specific stories, comfortable with frequency and physical demand, <b>worst-case story shows composure not avoidance.</b><br><b>Exit:</b> Can\'t produce real stories, vague frequency, or reveals they\'ve rarely been up.' },
-      ],
-      noExpCards: [
-        { type: 'ask', text: 'Tell me about a time you worked in physically demanding or uncomfortable conditions, [name]. What were the conditions and how did you handle it?' },
-        { type: 'note', text: 'Any context counts — <b>manual labor, sports, outdoor work.</b> If [name] <b>can\'t produce any example at all</b>, this is a soft exit.' },
-      ],
-      exitScript: '[name], this role is on rooftops and ladders every single day — that\'s non-negotiable. If physical readiness isn\'t a strong yes right now, it\'s going to be a very tough environment.'
-    },
-    {
-      id: 'selfdirection',
-      label: 'Self-direction',
-      section: 'Vetting',
-      rated: true,
-      cards: [
-        { type: 'ask', text: '[name], walk me through how you typically organize your day — what does your structure look like?' },
-        { type: 'ask', text: 'Tell me about a time you had to lead yourself through a pinch situation — something went sideways and there was no one to turn to. What happened and what did you do?' },
-        { type: 'listen', text: '<b>Strong:</b> Has a real system. Pinch story shows <b>composure, a clear decision, and follow-through.</b><br><b>Caution:</b> Day structure is loose but pinch story is solid.<br><b>Exit:</b> <b>No structure, no story</b> — relies on being managed.' },
-      ],
-      exitScript: ''
-    },
-    {
-      id: 'learning',
-      label: 'Learning speed',
-      section: 'Vetting',
-      rated: true,
-      cards: [
-        { type: 'ask', text: '[name], tell me about the last time you had to get up to speed on something complex quickly. What did you do, and how long did it take before you felt genuinely competent?' },
-        { type: 'note', text: '<b>"I\'m a fast learner" is not an answer.</b> You need a real example with a method, a timeline, and a measure of progress.' },
-        { type: 'ask', text: 'What\'s something you\'ve taught yourself — a skill, a tool, a process — without being formally trained on it?' },
-      ],
-      expCards: [
-        { type: 'ask', text: 'Based on your background and experience — what do you think you still need to learn and master to be genuinely great in this specific role?' },
-        { type: 'listen', text: '<b>Strong experienced:</b> Can <b>honestly identify their own gaps</b> — damage types, documentation standards, adjuster dynamics. Self-awareness = coachability.<br><b>Caution:</b> Says "not much" — may be overconfident.<br><b>Exit:</b> Can\'t name anything. Thinks they already know it all.' },
-      ],
-      noExpCards: [
-        { type: 'listen', text: '<b>Strong no-exp:</b> Real example with <b>method, timeline, how they measured progress.</b><br><b>Exit:</b> Can\'t name a real example — <b>waited to be taught every step.</b> In a field role without supervision, this is a liability.' },
-      ],
-      exitScript: ''
-    },
-    {
-      id: 'docs',
-      label: 'Documentation',
-      section: 'Vetting',
-      rated: true,
-      cards: [
-        { type: 'note', text: '<b>Pay is tied to documentation.</b> You need someone who treats this as <b>non-negotiable</b> — not someone who says they\'d do it but has no real system.' },
-      ],
-      expCards: [
-        { type: 'ask', text: '[name], walk me through your documentation process — what were the best practices that actually made you consistent and successful?' },
-      ],
-      noExpCards: [
-        { type: 'ask', text: '[name], you just finished your 6th adjuster meeting of the day. It\'s 6pm, you\'re tired, and you still have photos and notes to upload. Walk me through exactly what you do.' },
-      ],
-      sharedListenCards: [
-        { type: 'listen', text: '<b>Strong:</b> Step-by-step, specific system, <b>consistent regardless of energy level.</b><br><b>Exit:</b> Vague — "I\'d figure it out" — <b>no real process described.</b>' },
-      ],
-      exitScript: '[name], documentation in this role is directly tied to your pay — it\'s not optional and it\'s not flexible. If there\'s no structured process already in place, it becomes a real problem fast. I think there\'s a gap here that I\'m not confident we can close quickly enough.'
-    },
-    {
-      id: 'resilience',
-      label: 'Resilience',
-      section: 'Vetting',
-      rated: true,
-      expCards: [
-        { type: 'ask', text: '[name], if you had a stretch of several meetings that all resulted in denials, how would you evaluate what happened — and what would you change?' },
-      ],
-      noExpCards: [
-        { type: 'ask', text: '[name], tell me about a time you faced repeated setbacks or failures at work. What did you do to keep improving?' },
-      ],
-      cards: [
-        { type: 'listen', text: '<b>Strong:</b> <b>Self-reviews performance</b> — asks "what can I do differently?" Has a real process for adjusting.<br><b>Caution:</b> Accepts setbacks but <b>no real method to adapt.</b><br><b>Exit:</b> <b>Blames</b> the adjuster, the homeowner, the process, or luck.' },
-      ],
-      exitScript: ''
-    },
-    {
-      id: 'homeowner',
-      label: 'Homeowner comms',
-      section: 'Vetting',
-      rated: true,
-      cards: [
-        { type: 'ask', text: '[name], walk me through how you\'d introduce yourself and explain your role to a homeowner who has no idea why you\'re there before the adjuster arrives.' },
-        { type: 'ask', text: 'What would you do if that homeowner started venting about how long the process is taking — or got emotional about the damage to their home?' },
-        { type: 'listen', text: '<b>Strong:</b> Clear, warm, professional — <b>explains simply without overselling.</b> Stays grounded when things get emotional.<br><b>Caution:</b> Handles intro fine but <b>gets awkward with the emotional scenario.</b><br><b>Exit:</b> <b>Transactional, robotic</b>, or dismissive.' },
-      ],
-      exitScript: '[name], this role puts you in someone\'s home on one of their harder days. The ability to be professional and human at the same time isn\'t optional here. I\'m not seeing that confidence come through.'
-    },
-    {
-      id: 'humility',
-      label: 'Humility & coachability',
-      section: 'Vetting',
-      rated: true,
-      cards: [
-        { type: 'ask', text: '[name], tell me about a time you were completely sure you were right — and later found out you weren\'t. What did you do?' },
-        { type: 'ask', text: 'Some people shut down when their work gets challenged. How do you usually respond when someone pushes back on your assessment, [name]?' },
-        { type: 'listen', text: '<b>Strong:</b> Owns the mistake — <b>adjusted, learned, moved forward.</b> Calm under challenge.<br><b>Caution:</b> <b>Defensive</b> about original position but stays professional.<br><b>Exit:</b> <b>Deflects blame</b>, minimizes, or shuts down.' },
-      ],
-      exitScript: '[name], this role requires flexibility — you\'ll be right sometimes and wrong sometimes. The ability to receive feedback and adjust is what keeps you improving. I\'m concerned about the fit there.'
-    },
-    {
-      id: 'final',
-      label: 'Final alignment',
-      section: 'Close',
-      cards: [
-        { type: 'say', text: 'So now that you\'ve seen the role, [name] — it requires detail, conviction, and the ability to stand your ground professionally while still keeping homeowners comfortable.' },
-        { type: 'ask', text: 'Does this feel like how you naturally operate — or does it feel like a stretch?' },
-        { type: 'ask', text: 'And — now that you have the full picture, the role, what we\'re looking for, and the updated comp structure — are you still excited about moving forward?' },
-      ],
-      exitScript: '[name], I\'d rather you have clarity now than figure it out two weeks in. I think we\'re not quite aligned — and that\'s okay.'
-    },
-    {
-      id: 'debrief',
-      label: 'Debrief & verdict',
-      section: 'Debrief',
-      questions: [
-        { key: 'gut', text: 'When you picture [name] in the field on day 30 — do you see it working?', opts: [{ v: 'g', l: 'Yes, I can see it' }, { v: 'a', l: 'Maybe, with the right support' }, { v: 'r', l: 'Honestly, no' }] },
-        { key: 'pressure', text: 'How did [name] handle the live interruption mid-answer?', opts: [{ v: 'g', l: 'Stayed grounded — didn\'t fold' }, { v: 'a', l: 'Wobbled but recovered' }, { v: 'r', l: 'Escalated or collapsed' }] },
-        { key: 'learning', text: 'Do you believe [name] can self-teach this role without hand-holding?', opts: [{ v: 'g', l: 'Yes — gave real evidence' }, { v: 'a', l: 'Possibly — vague but hopeful' }, { v: 'r', l: 'No — needs to be taught everything' }] },
-        { key: 'pattern', text: 'Was there a consistent pattern in how [name] showed up across the call?', opts: [{ v: 'g', l: 'Consistent and grounded' }, { v: 'a', l: 'Mixed — some strong, some weak' }, { v: 'r', l: 'Inconsistent or performing' }] },
-        { key: 'risk', text: 'If you move [name] forward and it doesn\'t work — most likely reason?', opts: [{ v: 'g', l: 'No obvious failure point' }, { v: 'a', l: 'The learning curve' }, { v: 'r', l: 'Composure under real pushback' }] },
-      ]
-    }
-  ],
-
-  users: ['Ressa', 'Sheen', 'Felize'],
-};
-
-// script.js — App logic for Proliance Interview Guide
-
-const S = {
-  current: 0,
-  notes: {},
-  ratings: {},
-  choices: {},
-  debriefAnswers: {},
-  candName: '',
-  hasExp: null,
-  flags: [],
-  user: null,
-};
-
-// ── STORAGE ──────────────────────────────────────────────────────────────────
-
-function storageKey(k) { return `proliance_${S.user}_${k}`; }
-
-function save(key, val) {
-  try { localStorage.setItem(storageKey(key), JSON.stringify(val)); } catch(e) {}
-}
-
-function load(key, fallback) {
-  try {
-    const v = localStorage.getItem(storageKey(key));
-    return v !== null ? JSON.parse(v) : fallback;
-  } catch(e) { return fallback; }
-}
-
-function saveSession() {
-  save('session', {
-    current: S.current, notes: S.notes, ratings: S.ratings,
-    choices: S.choices, debriefAnswers: S.debriefAnswers,
-    candName: S.candName, hasExp: S.hasExp, flags: S.flags,
-  });
-}
-
-function loadSession() {
-  const s = load('session', null);
-  if (s) {
-    Object.assign(S, s);
-    document.getElementById('cand-name').value = S.candName || '';
-    updateExpPill();
-    updateVerdictPill();
-    renderFlags();
+const STEPS = [
+  {
+    id:'consent', label:'Comp check', section:'Fast Filter',
+    intro: 'Before any questions — give them the comp update and get a clear yes or no.',
+    questions:[
+      {num:'—', label:'Comp transparency', text:'Before we go any further — I want to be upfront with you, [name]. Since you applied, we\'ve updated our compensation structure. The base moved from $900 to $800 weekly, but the performance payouts actually increased across the board. I want to make sure you have the full picture before we continue.'},
+      {num:'—', label:'Check-in', text:'Are you still happy to move forward under the new structure?'},
+    ],
+    extras:[
+      {qIdx:1, type:'listen', text:'<b>Genuine yes:</b> Asks about breakdown or says "that sounds fair."<br><b>Hesitant:</b> Long pause — walk through the comp table, then re-ask.<br><b>Hard no:</b> Exit immediately. Do not try to save it.'},
+      {qIdx:1, type:'exit', text:'Totally fair, [name] — I appreciate you being upfront. No pressure at all. If anything changes, feel free to reach back out.'},
+    ],
+    compTable:true,
+    choices:[
+      {key:'showTable', question:'Did they ask about the breakdown?', options:[{val:'yes',label:'Yes — show table',color:'blue'},{val:'no',label:'No — moving on',color:'green'}]},
+      {key:'consent', question:'Their response?', options:[{val:'yes',label:'Yes — proceed',color:'green'},{val:'hesitant',label:'Hesitant',color:'amber'},{val:'no',label:'No — opts out',color:'red'}]},
+    ],
+    exitOn:{consent:['hesitant','no']}
+  },
+  {
+    id:'situation', label:'Situation + Intent', section:'Fast Filter',
+    intro:'Section 1 — Start here. Get their current state and why they\'re actually looking.',
+    questions:[
+      {num:'1', label:'Current situation', text:'What\'s your situation right now — are you working, in between jobs, or actively trying to transition out of something?'},
+      {num:'2', label:'Motivation / Intent', text:'Why are you exploring opportunities right now?'},
+      {num:'3', label:'Role-specific motivation', text:'Why this role specifically — not just a job — but this type of work?', jolt:true},
+    ],
+    extras:[
+      {qIdx:0, type:'listen', text:'<b>Employed and looking:</b> More selective — find the real reason fast.<br><b>In between:</b> How long, and are they getting desperate? Desperation = wrong reasons.<br><b>Transitioning:</b> Is the transition intentional or reactive?'},
+      {qIdx:1, type:'listen', text:'<b>Real reason = specific.</b> A moment, a situation, a number. "I need more money" alone is not enough — that\'s a symptom, not a reason.<br><b>Watch for:</b> Blame-heavy answers, no self-reflection.'},
+      {qIdx:1, type:'followup', text:'<b>If vague:</b> "When did you first notice something wasn\'t working?" — anchor it to a real moment.'},
+      {qIdx:2, type:'listen', text:'<b>Intentional:</b> Names the role, the company, the field — knows what a public adjuster does.<br><b>Spray and pray:</b> "I\'ve been applying to a lot of things" — can\'t say why this over others.<br><b>Red flag:</b> Can only talk about money — no interest in the actual work.'},
+      {qIdx:2, type:'followup', text:'<b>If vague:</b> "What specifically about the role description stood out to you?"<br><b>If money only:</b> "Beyond the income — what about the actual work appeals to you?"'},
+      {qIdx:2, type:'exit', text:'[name], we\'re specifically looking for people who\'ve researched this space and are moving toward it with a clear reason. I don\'t think this is the right timing.'},
+    ],
+    choices:[
+      {key:'intent', question:'How did they answer Q3?', options:[{val:'intentional',label:'Intentional — clear reason',color:'green'},{val:'vague',label:'Vague — followed up',color:'amber'},{val:'spray',label:'Spray and pray',color:'red'}]},
+    ],
+    exitOn:{intent:['spray']}
+  },
+  {
+    id:'field', label:'Field Readiness', section:'Vetting',
+    intro:'Section 2 — Non-negotiable. If weak here, end early.',
+    questions:[
+      {num:'4', label:'Field experience', text:'How much hands-on, physical field work have you actually done?'},
+      {num:'5', label:'Roof / height comfort', text:'Be honest — how comfortable are you being on steep or high roofs consistently?'},
+      {num:'6', label:'Real exposure', text:'Roughly how many roofs or similar job sites have you actually been on?'},
+    ],
+    extras:[
+      {qIdx:0, type:'listen', text:'<b>Strong:</b> Specific jobs, specific conditions, specific frequency — not just "I\'ve done it."<br><b>Exit:</b> "I haven\'t done it but I\'m sure I\'d be fine" — no real experience.'},
+      {qIdx:1, type:'listen', text:'<b>Strong:</b> 8–10 with a real story. Specific height, specific memory.<br><b>Exit:</b> 7+ with no story — inflating. Anything under 5. Vague confidence with no evidence.'},
+      {qIdx:1, type:'followup', text:'<b>If high number no story:</b> "Tell me about a specific time you were on a steep roof — what were the conditions?"<br><b>If hesitant:</b> "What specifically makes you less comfortable — height, surface, equipment?"'},
+      {qIdx:2, type:'listen', text:'<b>Strong:</b> Can give a real number or range with context.<br><b>Exit:</b> "A few" or "not many" with no specifics — reveals actual exposure is minimal.'},
+      {qIdx:2, type:'exit', text:'[name], this role is on rooftops and ladders every single day — that\'s non-negotiable. If physical readiness isn\'t a strong yes right now, it\'s going to be a very tough environment.'},
+    ],
+    choices:[
+      {key:'field', question:'How did they answer?', options:[{val:'strong',label:'Strong — specific + confident',color:'green'},{val:'ok',label:'Okay — some exposure',color:'amber'},{val:'weak',label:'Weak — little to no exposure',color:'red'}]},
+    ],
+    exitOn:{field:['weak']},
+    rated:true
+  },
+  {
+    id:'assertiveness', label:'Assertiveness + Pushback', section:'Vetting',
+    intro:'Section 3 — Core to role. This is what separates good candidates from great ones.',
+    questions:[
+      {num:'7', label:'Conflict / pushback', text:'Tell me about a time you had to push back on someone and not fold.'},
+      {num:'8', label:'Thought process under disagreement', text:'When someone disagrees with you on a job, how do you usually handle it?'},
+    ],
+    extras:[
+      {qIdx:0, type:'listen', text:'<b>Strong:</b> Clear situation, clear stance, stayed calm, had a reason — not just stubbornness.<br><b>Caution:</b> Pushed back but can\'t explain how.<br><b>Exit:</b> Folds or gets aggressive. No middle ground.'},
+      {qIdx:0, type:'followup', text:'<b>If vague:</b> "What specifically did you say to them?" — force the actual words out.<br><b>If no clear example:</b> "Think of any context — work, personal, anything where you held your ground."'},
+      {qIdx:1, type:'listen', text:'<b>Strong:</b> Calm confidence + evidence-based thinking. "I go back to what I can see and document."<br><b>Caution:</b> Handles it but emotionally — frustration leaks through.<br><b>Exit:</b> Either avoids conflict entirely OR escalates. No composure.'},
+      {qIdx:1, type:'followup', text:'<b>If too agreeable:</b> "What would you do if the adjuster dismissed something you were completely confident about?"<br><b>If too aggressive:</b> "How do you keep that assertiveness from damaging the relationship?"'},
+      {qIdx:1, type:'exit', text:'[name], this role requires holding your ground calmly and consistently — the adjuster won\'t always push back gently. I\'m not seeing that balance here.'},
+    ],
+    choices:[
+      {key:'assertiveness', question:'How did they answer?', options:[{val:'strong',label:'Calm + evidence-based',color:'green'},{val:'ok',label:'Functional but emotional',color:'amber'},{val:'weak',label:'Folds or escalates',color:'red'}]},
+    ],
+    exitOn:{assertiveness:['weak']},
+    rated:true,
+    roleplay:true
+  },
+  {
+    id:'detail', label:'Detail + Documentation', section:'Vetting',
+    intro:'Section 4 — Your focus area. Pay is tied to documentation. Probe hard here.',
+    questions:[
+      {num:'9', label:'Detail instinct', text:'Tell me about a time you caught something small that others missed.'},
+      {num:'10', label:'Process — preventing mistakes', text:'When you\'re doing a job, how do you make sure you don\'t miss anything?'},
+      {num:'11', label:'Pressure test', text:'When you\'re tired or rushing, what usually happens to your attention to detail?', hot:true},
+      {num:'12', label:'Documentation', text:'Walk me through how you would document a roof inspection so someone else could clearly understand exactly what you saw.', hot:true},
+      {num:'12f', label:'Follow-up — always ask this', text:'What exactly would you write down or take photos of?', alwaysFollowup:true},
+      {num:'13', label:'Ownership', text:'If you notice something wrong but no one else is addressing it, what do you usually do?'},
+      {num:'14', label:'Personal wiring', text:'Outside of work — are you the type of person who notices when things are off or out of place?'},
+    ],
+    extras:[
+      {qIdx:0, type:'listen', text:'<b>Strong:</b> Specific story with a real detail — not generic "I\'m detail-oriented."<br><b>Exit:</b> Can\'t produce a real example. Vague answer about being careful.'},
+      {qIdx:1, type:'listen', text:'<b>Strong:</b> Has an actual system — a checklist, a sequence, a self-check. Not just "I pay attention."<br><b>Exit:</b> No real process described. Relies on intention, not method.'},
+      {qIdx:2, type:'listen', text:'<b>Strong:</b> Honest — knows their weak spots and has a way to compensate. Self-awareness is the signal.<br><b>Caution:</b> "It doesn\'t affect me" — too polished. Everyone gets tired.<br><b>Exit:</b> "I just push through" with no real system to catch mistakes.'},
+      {qIdx:3, type:'listen', text:'<b>Strong:</b> Step-by-step, specific, could hand it to someone else. Has a sequence.<br><b>Exit:</b> Vague — "I\'d take photos and write notes." No structure, no specificity.'},
+      {qIdx:3, type:'note', text:'Pay is directly tied to documentation. If there\'s no real process here, flag it hard. This is non-negotiable.'},
+      {qIdx:4, type:'listen', text:'Listen for specifics — damage types, angles, measurements, notes for the file. The more specific, the better.'},
+      {qIdx:5, type:'listen', text:'<b>Strong:</b> Takes ownership without being asked. Documents it, flags it, follows up.<br><b>Exit:</b> "I\'d mention it to someone" — passive. Or worse, "not my job."'},
+      {qIdx:6, type:'listen', text:'<b>Strong:</b> Yes — and they have a real example. This is about wiring, not learned behavior.<br><b>Caution:</b> "Sometimes" — explore further.<br><b>Exit:</b> "Not really" or blank. Detail-orientation has to be natural in this role.'},
+      {qIdx:3, type:'exit', text:'[name], documentation in this role is directly tied to your pay — it\'s not optional. If there\'s no structured process already in place, it becomes a real problem fast.'},
+    ],
+    choices:[
+      {key:'detail', question:'How did they answer the documentation question?', options:[{val:'strong',label:'Strong — has a real process',color:'green'},{val:'ok',label:'Okay — general but no system',color:'amber'},{val:'weak',label:'Weak — vague, no structure',color:'red'}]},
+    ],
+    exitOn:{detail:['weak']},
+    rated:true
+  },
+  {
+    id:'selfdirection', label:'Self-Direction', section:'Vetting',
+    intro:'Section 5 — Independence test. No one watches them daily.',
+    questions:[
+      {num:'15', label:'Accountability', text:'This role is mostly independent — no one watching you daily. How do you stay accountable when no one\'s checking on you?'},
+    ],
+    extras:[
+      {qIdx:0, type:'listen', text:'<b>Strong:</b> Has a real system — personal standard, self-check routine, way of measuring own output. Not just "I\'m self-motivated."<br><b>Caution:</b> Loose structure but functional in practice.<br><b>Exit:</b> "I work better when someone checks in on me." Needs external accountability.'},
+      {qIdx:0, type:'followup', text:'<b>If vague:</b> "What does your day actually look like from the moment you start to the moment you wrap up?" — make it concrete.<br><b>If they rely on motivation:</b> "What do you do on the days when motivation isn\'t there?"'},
+      {qIdx:0, type:'exit', text:'[name], this role requires you to run independently from day one. If accountability needs to come from external check-ins, it\'s going to be a tough fit.'},
+    ],
+    choices:[
+      {key:'selfdirection', question:'How did they answer?', options:[{val:'strong',label:'Has a real system',color:'green'},{val:'ok',label:'Loose but functional',color:'amber'},{val:'weak',label:'Needs external accountability',color:'red'}]},
+    ],
+    exitOn:{selfdirection:['weak']},
+    rated:true
+  },
+  {
+    id:'capacity', label:'Reality + Capacity Check', section:'Vetting',
+    intro:'Section 6 — Jolt round. Tests emotional readiness and real commitment.',
+    questions:[
+      {num:'16', label:'Income + pressure reality', text:'If your first few weeks looked like this — base pay, low approvals, pushback from adjusters — how would that affect you?', jolt:true},
+      {num:'17', label:'Commitment check', text:'Are you choosing this because it fits you, or because you need something right now?', jolt:true},
+    ],
+    extras:[
+      {qIdx:0, type:'listen', text:'<b>Strong:</b> Has thought about it. Has a plan — savings, timeline, mental framework. Doesn\'t panic.<br><b>Caution:</b> Acknowledges it\'s hard but no real plan.<br><b>Exit:</b> "I\'d be fine" with no depth — hasn\'t thought about it. Or genuine anxiety with no resilience.'},
+      {qIdx:0, type:'followup', text:'<b>If too confident:</b> "Have you mapped out what your actual income would look like in week 2 with no approvals?"<br><b>If anxious:</b> "What would you do practically if that happened?" — see if there\'s a real plan under the anxiety.'},
+      {qIdx:1, type:'listen', text:'<b>Strong:</b> Honest. "Both — but mostly fit." Can name specific reasons why the role works for them.<br><b>Caution:</b> Heavy on need. Not necessarily wrong — but needs follow-up.<br><b>Exit:</b> "I just need a job right now" — no thought about fit at all. Will churn fast.'},
+      {qIdx:1, type:'followup', text:'<b>If they say need:</b> "Walk me through how this role specifically fits where you want to go." — give them a chance to show intentionality beyond desperation.'},
+      {qIdx:1, type:'exit', text:'[name], I\'d rather you come into this clear-eyed. If it\'s mostly about needing something right now, the role is going to feel different than expected — and that\'s not fair to you.'},
+    ],
+    choices:[
+      {key:'capacity', question:'How did they answer?', options:[{val:'strong',label:'Prepared + intentional',color:'green'},{val:'ok',label:'Acknowledged it — needs follow-up',color:'amber'},{val:'weak',label:'Unprepared or purely need-based',color:'red'}]},
+    ],
+    exitOn:{capacity:['weak']},
+    rated:true
+  },
+  {
+    id:'final', label:'Final alignment', section:'Close',
+    questions:[
+      {num:'—', label:'Reality check', text:'So now that you\'ve seen the role, [name] — it requires detail, conviction, and the ability to stand your ground professionally while still keeping homeowners comfortable.'},
+      {num:'—', label:'Fit check', text:'Does this feel like how you naturally operate — or does it feel like a stretch?'},
+      {num:'—', label:'Comp close', text:'And — now that you have the full picture, the role, what we\'re looking for, and the updated comp structure — are you still excited about moving forward?'},
+    ],
+    extras:[
+      {qIdx:2, type:'listen', text:'<b>Strong yes:</b> Energized, specific about why. References something from the interview that resonated.<br><b>Soft yes:</b> "Yeah I think so" — probe once: "What part feels most natural to you?"<br><b>Hesitant:</b> Don\'t push. Thank them and give space.'},
+      {qIdx:2, type:'exit', text:'[name], I\'d rather you have clarity now than figure it out two weeks in. I think we\'re not quite aligned — and that\'s okay.'},
+    ],
+    choices:[
+      {key:'final', question:'Their final response?', options:[{val:'yes',label:'Yes — strong buy-in',color:'green'},{val:'maybe',label:'Soft yes — flagged',color:'amber'},{val:'no',label:'No — opted out',color:'red'}]},
+    ]
+  },
+  {
+    id:'debrief', label:'Debrief & verdict', section:'Debrief',
+    debrief:true,
+    questions:[],
+    dbQuestions:[
+      {key:'gut', text:'When you picture [name] in the field on day 30 — do you see it working?', opts:[{v:'g',l:'Yes, I can see it'},{v:'a',l:'Maybe, with the right support'},{v:'r',l:'Honestly, no'}]},
+      {key:'pressure', text:'How did [name] handle the live interruption mid-answer?', opts:[{v:'g',l:'Stayed grounded — didn\'t fold'},{v:'a',l:'Wobbled but recovered'},{v:'r',l:'Escalated or collapsed'}]},
+      {key:'roleplay', text:'How did [name] perform in the roleplay scenarios?', opts:[{v:'g',l:'Held ground — calm and evidence-based'},{v:'a',l:'Passed some, struggled on others'},{v:'r',l:'Folded or escalated consistently'}]},
+      {key:'detail', text:'Do you trust [name] to document every meeting without being reminded?', opts:[{v:'g',l:'Yes — showed process discipline'},{v:'a',l:'Maybe — needs a system'},{v:'r',l:'No — vague and reactive'}]},
+      {key:'pattern', text:'Was there a consistent pattern in how [name] showed up across the call?', opts:[{v:'g',l:'Consistent and grounded'},{v:'a',l:'Mixed — some strong, some weak'},{v:'r',l:'Inconsistent or performing'}]},
+    ]
   }
+];
+
+const USERS = ['Ressa','Sheen','Felize'];
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+const S = {current:0,notes:{},ratings:{},choices:{},debriefAnswers:{},candName:'',flags:[],user:null};
+const idMap = {};
+STEPS.forEach((s,i)=>idMap[s.id]=i);
+
+function storageKey(k){return `prol_${S.user}_${k}`;}
+function save(k,v){try{localStorage.setItem(storageKey(k),JSON.stringify(v));}catch(e){}}
+function load(k,fb){try{const v=localStorage.getItem(storageKey(k));return v!==null?JSON.parse(v):fb;}catch(e){return fb;}}
+function saveSession(){save('sess',{current:S.current,notes:S.notes,ratings:S.ratings,choices:S.choices,debriefAnswers:S.debriefAnswers,candName:S.candName,flags:S.flags});}
+function loadSession(){const s=load('sess',null);if(s){Object.assign(S,s);document.getElementById('cand-name').value=S.candName||'';updatePills();renderFlags();}}
+function saveHistory(c){const h=load('hist',[]);const i=h.findIndex(x=>x.id===c.id);if(i>=0)h[i]=c;else h.unshift(c);save('hist',h.slice(0,100));}
+function loadHistory(){return load('hist',[]);}
+function newSession(){S.current=0;S.notes={};S.ratings={};S.choices={};S.debriefAnswers={};S.candName='';S.flags=[];document.getElementById('cand-name').value='';updatePills();renderFlags();saveSession();goTo(0);}
+function login(u){S.user=u;save('lastUser',u);document.getElementById('login-screen').style.display='none';document.getElementById('app').classList.add('visible');loadSession();renderStep();renderSidebar();}
+function logout(){saveSession();S.user=null;document.getElementById('app').classList.remove('visible');document.getElementById('login-screen').style.display='flex';}
+function fn(){return S.candName?S.candName.split(' ')[0]:'[name]';}
+function injectName(t){return t.replace(/\[name\]/g,`<b style="color:#185FA5">${fn()}</b>`);}
+
+function addFlag(color){const step=STEPS[S.current];S.flags.push({color,step:step.label,time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})});renderFlags();saveSession();}
+function renderFlags(){const strip=document.getElementById('flags-strip');if(!S.flags.length){strip.classList.remove('visible');return;}strip.classList.add('visible');const cm={green:['#EAF3DE','#3B6D11','Green'],amber:['#FAEEDA','#BA7517','Yellow'],red:['#FCEBEB','#A32D2D','Red']};strip.innerHTML=S.flags.map(f=>{const[bg,c,l]=cm[f.color];return `<span class="flag-chip" style="background:${bg};color:${c}">${l} · ${f.step} · ${f.time}</span>`;}).join('');}
+
+function updatePills(){
+  const vp=document.getElementById('verdict-pill');
+  const s=Object.values(S.ratings).filter(r=>r==='strong').length,c=Object.values(S.ratings).filter(r=>r==='caution').length,e=Object.values(S.ratings).filter(r=>r==='exit').length;
+  if(s+c+e===0){vp.style.display='none';return;}
+  vp.style.display='inline-block';
+  if(e>0){vp.style.background='#FCEBEB';vp.style.color='#A32D2D';vp.textContent='Exit triggered';}
+  else if(s>=5){vp.style.background='#EAF3DE';vp.style.color='#3B6D11';vp.textContent='Strong hire';}
+  else if(s>=3){vp.style.background='#FAEEDA';vp.style.color='#BA7517';vp.textContent='Proceed w/ caution';}
+  else{vp.style.background='#FCEBEB';vp.style.color='#A32D2D';vp.textContent='Do not proceed';}
 }
 
-function saveHistory(candidate) {
-  const hist = load('history', []);
-  const idx = hist.findIndex(h => h.id === candidate.id);
-  if (idx >= 0) hist[idx] = candidate; else hist.unshift(candidate);
-  save('history', hist.slice(0, 100));
+// ── TOGGLE LOGIC ──────────────────────────────────────────────────────────────
+function togglePanel(btn){
+  const panel=btn.nextElementSibling;
+  const isOpen=panel.classList.contains('visible');
+  panel.classList.toggle('visible',!isOpen);
+  const arrow=btn.querySelector('.tog-arrow');
+  if(arrow) arrow.textContent=isOpen?'▼':'▲';
 }
-
-function loadHistory() { return load('history', []); }
-
-function newSession() {
-  S.current = 0; S.notes = {}; S.ratings = {}; S.choices = {};
-  S.debriefAnswers = {}; S.candName = ''; S.hasExp = null; S.flags = [];
-  document.getElementById('cand-name').value = '';
-  updateExpPill(); updateVerdictPill(); renderFlags();
-  saveSession();
-  goTo(0);
-}
-
-// ── LOGIN ─────────────────────────────────────────────────────────────────────
-
-function login(user) {
-  S.user = user;
-  save('lastUser', user);
-  document.getElementById('login-screen').style.display = 'none';
-  document.getElementById('app').classList.add('visible');
-  loadSession();
-  renderStep();
-  renderSidebar();
-}
-
-function logout() {
-  saveSession();
-  S.user = null;
-  document.getElementById('app').classList.remove('visible');
-  document.getElementById('login-screen').style.display = 'flex';
-}
-
-// ── NAME HELPERS ──────────────────────────────────────────────────────────────
-
-function fn() { return S.candName ? S.candName.split(' ')[0] : '[name]'; }
-function injectName(text) { return text.replace(/\[name\]/g, `<b style="color:#185FA5">${fn()}</b>`); }
-function injectNamePlain(text) { return text.replace(/\[name\]/g, fn()); }
-
-// ── FLAGS ─────────────────────────────────────────────────────────────────────
-
-function addFlag(color) {
-  const step = SCRIPT_DATA.steps[S.current];
-  S.flags.push({ color, step: step.label, time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) });
-  renderFlags();
-  saveSession();
-}
-
-function renderFlags() {
-  const strip = document.getElementById('flags-strip');
-  if (!S.flags.length) { strip.classList.remove('visible'); return; }
-  strip.classList.add('visible');
-  const cmap = { green: ['#EAF3DE','#3B6D11','Green'], amber: ['#FAEEDA','#BA7517','Yellow'], red: ['#FCEBEB','#A32D2D','Red'] };
-  strip.innerHTML = S.flags.map(f => {
-    const [bg, color, label] = cmap[f.color];
-    return `<span class="flag-chip" style="background:${bg};color:${color}">${label} · ${f.step} · ${f.time}</span>`;
-  }).join('');
-}
-
-// ── PILLS ─────────────────────────────────────────────────────────────────────
-
-function updateExpPill() {
-  const el = document.getElementById('exp-pill');
-  if (!el) return;
-  const v = S.hasExp;
-  if (!v) { el.style.display = 'none'; return; }
-  el.style.display = 'inline-block';
-  const map = { yes: ['#E6F1FB','#185FA5','Experienced'], partial: ['#E1F5EE','#0F6E56','Partial exp'], no: ['#FCEBEB','#A32D2D','No experience'] };
-  const [bg, color, label] = map[v];
-  Object.assign(el.style, { background: bg, color });
-  el.textContent = label;
-}
-
-function updateVerdictPill() {
-  const el = document.getElementById('verdict-pill');
-  if (!el) return;
-  const s = Object.values(S.ratings).filter(r => r === 'strong').length;
-  const c = Object.values(S.ratings).filter(r => r === 'caution').length;
-  const e = Object.values(S.ratings).filter(r => r === 'exit').length;
-  if (s + c + e === 0) { el.style.display = 'none'; return; }
-  el.style.display = 'inline-block';
-  if (e > 0) { el.style.background = '#FCEBEB'; el.style.color = '#A32D2D'; el.textContent = 'Exit triggered'; }
-  else if (s >= 8) { el.style.background = '#EAF3DE'; el.style.color = '#3B6D11'; el.textContent = 'Strong hire'; }
-  else if (s >= 6) { el.style.background = '#FAEEDA'; el.style.color = '#BA7517'; el.textContent = 'Proceed w/ caution'; }
-  else { el.style.background = '#FCEBEB'; el.style.color = '#A32D2D'; el.textContent = 'Do not proceed'; }
-}
+function toggleRP(btn){btn.classList.toggle('open');btn.nextElementSibling.classList.toggle('visible');}
 
 // ── CARD BUILDERS ─────────────────────────────────────────────────────────────
+function buildQCard(step, qObj, stepExtras){
+  const extras = stepExtras.filter(e=>e.qIdx === step.questions.indexOf(qObj));
+  let togglesHTML='';
+  extras.forEach((ex,i)=>{
+    const uid=`tog_${step.id}_${step.questions.indexOf(qObj)}_${i}`;
+    const labels={listen:'Listen for',note:'Note',exit:'Exit line',followup:'If vague',rule:'Rule'};
+    const clsMap={listen:'listen-tog',note:'note-tog',exit:'exit-tog',followup:'followup-tog',rule:'rule-tog'};
+    const panelMap={listen:'listen-panel',note:'note-panel',exit:'exit-panel',followup:'followup-panel',rule:'rule-panel'};
+    togglesHTML+=`<button class="tog-btn ${clsMap[ex.type]||''}" onclick="togglePanel(this)"><span>${labels[ex.type]||ex.type}</span><span class="tog-arrow">▼</span></button><div class="tog-panel ${panelMap[ex.type]||''}">${injectName(ex.text)}</div>`;
+  });
 
-function cardHTML(type, text, editable = true) {
-  const tagLabels = { ask: 'ASK', say: 'SAY', note: 'NOTE', rule: 'RULE', listen: 'LISTEN FOR', exit: 'EXIT', branch: 'EXPERIENCED TRACK', context: 'ROLE BRIEFING' };
-  const isAsk = type === 'ask';
-  const textClass = isAsk ? 'q-text' : 'kv-text';
-  const editAttr = editable ? 'contenteditable="true"' : '';
-  const editHint = editable ? '<span class="edit-hint">click to edit</span>' : '';
-  return `<div class="card">${editHint}<span class="tag t-${type}">${tagLabels[type] || type.toUpperCase()}</span><div class="${textClass} editable" ${editAttr}>${injectName(text)}</div></div>`;
-}
+  const isJolt = qObj.jolt ? `<span style="font-size:10px;font-weight:700;background:#1a1a1a;color:#fff;padding:1px 6px;border-radius:3px;margin-left:6px;letter-spacing:.04em">JOLT</span>` : '';
+  const isHot = qObj.hot ? `<span style="font-size:10px;font-weight:700;background:var(--red-bg);color:var(--red);padding:1px 6px;border-radius:3px;margin-left:6px">KEY</span>` : '';
+  const isAlways = qObj.alwaysFollowup ? `<span style="font-size:10px;font-weight:700;background:var(--purple-bg);color:var(--purple);padding:1px 6px;border-radius:3px;margin-left:6px">ALWAYS ASK</span>` : '';
 
-function exitBlockHTML(script) {
-  return `<div class="exit-block"><div class="exit-lbl">Exit — say verbatim</div><div class="exit-say editable" contenteditable="true">${injectName(script)}</div></div>`;
-}
-
-function choiceHTML(key, question, options) {
-  const cur = S.choices[key];
-  const colorMap = { green: 'sel-g', red: 'sel-r', amber: 'sel-a', blue: 'sel-b' };
-  const btns = options.map(o => {
-    const sel = cur === o.val ? colorMap[o.color] || '' : '';
-    return `<button class="opt-btn ${sel}" onclick="setChoice('${key}','${o.val}')">${o.label}</button>`;
-  }).join('');
-  return `<div class="choice-card"><div class="choice-q">${question}</div><div class="opts">${btns}</div></div>`;
-}
-
-function ratingHTML(id, exitScript) {
-  const r = S.ratings[id];
-  return `<div style="margin-top:6px">
-    <div style="font-size:11px;color:var(--text3);margin-bottom:5px">Your rating</div>
-    <div class="rating-row">
-      <button class="r-btn r-s ${r==='strong'?'on':''}" onclick="rate('${id}','strong')">Strong</button>
-      <button class="r-btn r-c ${r==='caution'?'on':''}" onclick="rate('${id}','caution')">Caution</button>
-      <button class="r-btn r-e ${r==='exit'?'on':''}" onclick="rate('${id}','exit')">Exit</button>
-    </div>
-    ${r === 'exit' && exitScript ? exitBlockHTML(exitScript) : ''}
+  return `<div class="q-card">
+    <div class="q-num">Q${qObj.num} · ${qObj.label}${isJolt}${isHot}${isAlways}</div>
+    <div class="q-text">${injectName(qObj.text)}</div>
+    ${togglesHTML ? `<div class="toggle-row" style="margin-top:8px">${togglesHTML}</div>` : ''}
   </div>`;
 }
 
-function noteHTML(id) {
-  return `<div class="notes-lbl">Your notes</div><textarea placeholder="Write here..." onchange="S.notes['${id}']=this.value;saveSession()">${S.notes[id] || ''}</textarea>`;
+function choiceHTML(key,question,options){
+  const cur=S.choices[key];const cm={green:'sel-g',red:'sel-r',amber:'sel-a',blue:'sel-b'};
+  const btns=options.map(o=>`<button class="opt-btn ${cur===o.val?cm[o.color]||'':''}" onclick="setChoice('${key}','${o.val}')">${o.label}</button>`).join('');
+  return `<div class="choice-card"><div class="choice-q">${question}</div><div class="opts">${btns}</div></div>`;
 }
 
-function trackBadge() {
-  const v = S.hasExp;
-  if (!v) return '';
-  const map = { yes: ['tb-exp', 'Experienced track'], partial: ['tb-partial', 'Partial experience track'], no: ['tb-noexp', 'No experience track'] };
-  const [cls, label] = map[v];
-  return `<div class="track-badge ${cls}">${label}</div>`;
+function ratingHTML(id){
+  const r=S.ratings[id];
+  return `<div style="margin-top:4px"><div style="font-size:11px;color:var(--text3);margin-bottom:5px">Your rating</div><div class="rating-row"><button class="r-btn r-s ${r==='strong'?'on':''}" onclick="rate('${id}','strong')">Strong</button><button class="r-btn r-c ${r==='caution'?'on':''}" onclick="rate('${id}','caution')">Caution</button><button class="r-btn r-e ${r==='exit'?'on':''}" onclick="rate('${id}','exit')">Exit</button></div></div>`;
 }
 
-// ── STEP RENDERERS ────────────────────────────────────────────────────────────
+function noteHTML(id){return `<div class="notes-lbl">Your notes</div><textarea placeholder="Write here..." onchange="S.notes['${id}']=this.value;saveSession()">${S.notes[id]||''}</textarea>`;}
 
-function renderStepContent(step) {
-  const exp = S.hasExp;
-  let html = '';
+function roleplaysHTML(){
+  return `<div style="margin:12px 0 4px;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--text3)">Roleplay scenarios</div>
+  <div class="rp-section">
+    <button class="rp-toggle" onclick="toggleRP(this)"><span>Setup — read this first</span><span class="rp-arrow">▼</span></button>
+    <div class="rp-body">
+      <div class="rp-setup"><b>Say verbatim:</b><br><br>"Alright, I want to do a quick roleplay. There's no perfect answer — I just want to see how you think and communicate in a real situation.<br><br>You're on a roof with an insurance adjuster. I'm going to push back like they normally would. Your job is to respond how you naturally would.<br><br>Don't overthink it — just talk to me."<br><br><b>Pause. Let them say yes before continuing.</b></div>
+      <div class="rp-rule"><b style="color:var(--red)">Your rule:</b> Do not help them. Do not rephrase your objection. Let silence sit. You're testing pressure response — not guiding them.</div>
+    </div>
+  </div>
+  <div class="rp-section">
+    <button class="rp-toggle" onclick="toggleRP(this)"><span>Scenario 1 — Minimizing damage <span style="font-size:11px;color:var(--text3);font-weight:400">(start here)</span></span><span class="rp-arrow">▼</span></button>
+    <div class="rp-body">
+      <div class="rp-line">"Honestly, this isn't that serious. It's just a few spots. We can patch this instead of replacing the whole roof."</div>
+      <div class="rp-watch"><b>Watch:</b> Do they push back? Do they question the logic? Do they stay calm?</div>
+      <div class="rp-signals">
+        <div class="rp-pass"><div class="rp-signal-lbl">Pass</div><div class="rp-signal-items">"I hear you, but…"<br>"Wouldn't that cause issues long-term?"<br>"Can we look at the bigger picture here?"<br><span style="font-size:11px;color:var(--green)">Engagement + backbone = pass</span></div></div>
+        <div class="rp-fail"><div class="rp-signal-lbl">Fail</div><div class="rp-signal-items">Agrees immediately<br>Freezes / long silence<br>Rambles without direction</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="rp-section">
+    <button class="rp-toggle" onclick="toggleRP(this)"><span>Scenario 2 — Time pressure</span><span class="rp-arrow">▼</span></button>
+    <div class="rp-body">
+      <div class="rp-line">"I've got a lot of inspections today — I don't have time to go back and forth on this."</div>
+      <div class="rp-watch"><b>Watch:</b> Do they fold under pressure? Can they stay respectful but firm?</div>
+      <div class="rp-signals">
+        <div class="rp-pass"><div class="rp-signal-lbl">Pass</div><div class="rp-signal-items">"I understand — I'll keep it quick. I just want to make sure we're not missing anything that could cause issues later."</div></div>
+        <div class="rp-fail"><div class="rp-signal-lbl">Fail</div><div class="rp-signal-items">"Okay no problem" — backs off<br>Gets flustered or apologetic</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="rp-section">
+    <button class="rp-toggle" onclick="toggleRP(this)"><span>Scenario 3 — Authority push</span><span class="rp-arrow">▼</span></button>
+    <div class="rp-body">
+      <div class="rp-line">"I've been doing this for 15 years. I know what I'm looking at."</div>
+      <div class="rp-watch"><b>Watch:</b> Intimidation response. Confidence without ego.</div>
+      <div class="rp-signals">
+        <div class="rp-pass"><div class="rp-signal-lbl">Pass</div><div class="rp-signal-items">"I respect that — I just want to make sure we're aligned on what's best here. Can we double-check this section together?"</div></div>
+        <div class="rp-fail"><div class="rp-signal-lbl">Fail</div><div class="rp-signal-items">"Yeah you're probably right"<br>OR overly aggressive pushback</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="rp-section">
+    <button class="rp-toggle" onclick="toggleRP(this)"><span>Jolt round — if they respond weakly</span><span class="rp-arrow">▼</span></button>
+    <div class="rp-body">
+      <div class="rp-jolt">
+        <div class="rp-jolt-lbl">Say this</div>
+        <div class="rp-jolt-line">"I'm noticing you're agreeing pretty quickly. In this role, that could cost the homeowner. Try that again — but this time, push back a bit more."</div>
+        <div class="rp-jolt-tests"><b>Tests:</b> Coachability · Real-time adjustment · Mental toughness</div>
+      </div>
+    </div>
+  </div>`;
+}
 
-  // Track badge for vetting steps
-  if (step.section === 'Vetting' && step.id !== 'roleexplain') html += trackBadge();
+// ── STEP RENDERER ─────────────────────────────────────────────────────────────
+function renderStepContent(step){
+  if(step.debrief) return renderDebrief(step);
+  let html='';
 
-  // Render main cards
-  if (step.cards) step.cards.forEach(c => { html += cardHTML(c.type, c.text); });
+  // Intro
+  if(step.intro) html+=`<div style="font-size:12.5px;color:var(--text2);margin-bottom:14px;padding:9px 12px;background:var(--bg2);border-radius:var(--radius-sm);line-height:1.65">${step.intro}</div>`;
 
-  // Step-specific rendering
-  if (step.id === 'consent') html += renderConsent(step);
-  if (step.id === 'intent') html += renderIntent(step);
-  if (step.id === 'background') html += renderBackground(step);
-  if (step.id === 'gap') html += renderGap(step);
-  if (step.id === 'roleexplain') html += renderRoleExplain(step);
-  if (step.id === 'final') html += renderFinal(step);
-  if (step.id === 'debrief') html += renderDebrief(step);
+  // Questions
+  step.questions.forEach(q=>{
+    html+=buildQCard(step, q, step.extras||[]);
+  });
 
-  // Exp/no-exp branched cards for vetting steps
-  if (['pressure','conviction','field','learning','docs','resilience'].includes(step.id)) {
-    if (exp === 'yes' && step.expCards) step.expCards.forEach(c => { html += cardHTML(c.type, c.text || c.label || ''); });
-    if ((exp === 'no' || exp === 'partial') && step.noExpCards) step.noExpCards.forEach(c => { html += cardHTML(c.type, c.text); });
-    if (step.sharedListenCards) step.sharedListenCards.forEach(c => { html += cardHTML(c.type, c.text); });
+  // Special step content
+  if(step.id==='consent') html+=renderConsentExtras(step);
+
+  // Choices — always visible
+  if(step.choices){
+    step.choices.forEach(ch=>{ html+=choiceHTML(ch.key,ch.question,ch.options); });
   }
 
-  // Rating block for rated steps
-  if (step.rated) html += ratingHTML(step.id, step.exitScript || '');
-
-  // Notes
-  if (step.id !== 'debrief') html += noteHTML(step.id);
-
-  return html;
-}
-
-function renderConsent(step) {
-  let html = '';
-  step.choices.forEach(ch => { html += choiceHTML(ch.key, ch.question, ch.options); });
-  if (S.choices['showTable'] === 'yes') {
-    html += `<div class="card"><span class="tag t-note">COMP TABLE</span>
-      <table class="comp-table">
-        <tr><th></th><th>Old</th><th>New</th><th>Change</th></tr>
-        <tr><td colspan="4" style="font-size:11px;color:var(--text3);padding-top:6px">Option 1 — Base</td></tr>
-        <tr><td>Base pay</td><td>$900/wk</td><td>$800/wk</td><td class="dn">−$100</td></tr>
-        <tr><td>Full approval</td><td>$100</td><td>$150</td><td class="up">+$50</td></tr>
-        <tr><td>Partial approval</td><td>$50</td><td>$50</td><td>—</td></tr>
-        <tr><td>Denial</td><td>—</td><td>$20</td><td class="up">New</td></tr>
-        <tr><td colspan="4" style="font-size:11px;color:var(--text3);padding-top:6px">Option 2 — Commission only</td></tr>
-        <tr><td>Full approval</td><td>$200</td><td>$250</td><td class="up">+$50</td></tr>
-        <tr><td>Partial approval</td><td>$100</td><td>$150</td><td class="up">+$50</td></tr>
-        <tr><td>Denial</td><td>$50</td><td>$50</td><td>—</td></tr>
-      </table></div>`;
-  }
-  const resp = S.choices['consent'];
-  if (resp === 'hesitant' || resp === 'no') html += exitBlockHTML(step.exits[resp] || '');
-  return html;
-}
-
-function renderIntent(step) {
-  let html = '';
-  step.choices.forEach(ch => { html += choiceHTML(ch.key, ch.question, ch.options); });
-  if (S.choices['intent'] === 'spray') html += exitBlockHTML(step.exits.spray || '');
-  return html;
-}
-
-function renderBackground(step) {
-  let html = '';
-  step.choices.forEach(ch => { html += choiceHTML(ch.key, ch.question, ch.options); });
-  const exp = S.choices['exp'];
-  if (exp === 'no') html += exitBlockHTML(step.exits.no || '');
-  if (exp === 'partial' && step.partialNote) {
-    html += `<div class="partial-note">${injectName(step.partialNote)}</div>`;
-  }
-  return html;
-}
-
-function renderGap(step) {
-  let html = '';
-  step.choices.forEach(ch => { html += choiceHTML(ch.key, ch.question, ch.options); });
-  if (S.choices['gap'] !== 'vague') return html;
-  const vf = step.vagueFollowup;
-  html += `<div class="card" style="border-color:var(--amber)"><span class="tag t-note">GAP BRANCH</span><div class="kv-text">Gap is unclear. Find the reason for leaving — then test if it's urgent.</div></div>`;
-  vf.choices.forEach(ch => { html += choiceHTML(ch.key, ch.question, ch.options); });
-  const reason = S.choices['leavingReason'];
-  if (!reason) return html;
-  if (reason === 'unclear') { html += exitBlockHTML(vf.exits.unclear || ''); return html; }
-  const branch = vf[reason];
-  if (!branch) return html;
-  if (branch.cards) branch.cards.forEach(c => { html += cardHTML(c.type, c.text); });
-  if (branch.choices) branch.choices.forEach(ch => { html += choiceHTML(ch.key, ch.question, ch.options); });
-  if (branch.exits) {
-    Object.entries(branch.exits).forEach(([val, script]) => {
-      if (S.choices[branch.choices?.[0]?.key] === val) html += exitBlockHTML(script);
+  // Exit on bad choice
+  if(step.exitOn){
+    Object.entries(step.exitOn).forEach(([key,vals])=>{
+      if(vals.includes(S.choices[key])){
+        const exitExtra=step.extras&&step.extras.find(e=>e.type==='exit');
+        if(exitExtra) html+=`<div class="exit-block"><div class="exit-lbl">Exit — say this</div><div class="exit-say">${injectName(exitExtra.text)}</div></div>`;
+      }
     });
   }
-  if (reason === 'financial' && branch.urgency && S.choices['finPain'] === 'yes') {
-    const urg = branch.urgency;
-    if (urg.cards) urg.cards.forEach(c => { html += cardHTML(c.type, c.text); });
-    if (urg.choices) urg.choices.forEach(ch => { html += choiceHTML(ch.key, ch.question, ch.options); });
-    if (S.choices['urgency'] === 'later' && urg.exits?.later) html += exitBlockHTML(urg.exits.later);
+
+  // Roleplay
+  if(step.roleplay) html+=roleplaysHTML();
+
+  // Rating
+  if(step.rated) html+=ratingHTML(step.id);
+
+  // Notes
+  html+=noteHTML(step.id);
+
+  return html;
+}
+
+function renderConsentExtras(step){
+  let html='';
+  if(S.choices['showTable']==='yes'){
+    html+=`<div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:13px 15px;margin-bottom:8px">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text3);margin-bottom:8px">Comp comparison</div>
+      <table class="comp-table">
+        <tr><th></th><th>Old</th><th>New</th><th></th></tr>
+        <tr><td colspan="4" style="font-size:11px;color:var(--text3);padding-top:6px;padding-bottom:2px">Salary + Commission</td></tr>
+        <tr><td>Base pay</td><td>$900/wk</td><td>$800/wk</td><td class="dn">−$100</td></tr>
+        <tr><td>Full approval</td><td>$100</td><td>$150</td><td class="up">+$50</td></tr>
+        <tr><td>Partial approval</td><td>$50</td><td>$50</td><td style="color:var(--text3)">—</td></tr>
+        <tr><td>Denial</td><td>—</td><td>$20</td><td class="up">New</td></tr>
+        <tr><td colspan="4" style="font-size:11px;color:var(--text3);padding-top:10px;padding-bottom:2px">Commission Only</td></tr>
+        <tr><td>Full approval</td><td>$200</td><td>$250</td><td class="up">+$50</td></tr>
+        <tr><td>Partial approval</td><td>$100</td><td>$150</td><td class="up">+$50</td></tr>
+        <tr><td>Denial</td><td>$50</td><td>$50</td><td style="color:var(--text3)">—</td></tr>
+      </table>
+    </div>`;
   }
   return html;
 }
 
-function renderRoleExplain(step) {
-  const exp = S.hasExp;
-  let html = '';
-  if (exp === 'yes') {
-    html += trackBadge();
-    if (step.expCards) step.expCards.forEach(c => { html += cardHTML(c.type, c.text); });
-  } else {
-    if (exp === 'partial') html += `<div class="track-badge tb-partial">Partial experience track</div>`;
-    else if (exp === 'no') html += `<div class="track-badge tb-noexp">No experience track</div>`;
-    if (step.noExpCards) step.noExpCards.forEach(c => { html += cardHTML(c.type, c.text); });
-  }
-  return html;
-}
-
-function renderFinal(step) {
-  const s = Object.values(S.ratings).filter(r => r === 'strong').length;
-  const c = Object.values(S.ratings).filter(r => r === 'caution').length;
-  const e = Object.values(S.ratings).filter(r => r === 'exit').length;
-  let d = {};
-  if (e > 0) d = { bg: '#FCEBEB', c: '#A32D2D', title: 'Do not proceed', sub: 'An exit was triggered. Interview confidence does not override exit signals.' };
-  else if (s >= 8 && c <= 2) d = { bg: '#EAF3DE', c: '#3B6D11', title: 'Strong hire', sub: 'Composure, field readiness, learning ability, and process discipline all present.' };
-  else if (s >= 6) d = { bg: '#FAEEDA', c: '#BA7517', title: 'Proceed with caution', sub: 'Probe flagged caution areas in a second conversation before deciding.' };
-  else d = { bg: '#FCEBEB', c: '#A32D2D', title: 'Do not proceed', sub: 'Fewer than 6 strong ratings. Interview confidence does not override weak signals.' };
-  return `<div class="card"><span class="tag t-note">SCORE SUMMARY</span>
-    <div class="sum-grid">
-      <div class="sum-card"><div class="sum-lbl">Strong</div><div class="sum-val" style="color:var(--green)">${s}</div></div>
-      <div class="sum-card"><div class="sum-lbl">Caution</div><div class="sum-val" style="color:var(--amber)">${c}</div></div>
-      <div class="sum-card"><div class="sum-lbl">Exit triggers</div><div class="sum-val" style="color:var(--red)">${e}</div></div>
-      <div class="sum-card"><div class="sum-lbl">Sections rated</div><div class="sum-val">${s+c+e} of 10</div></div>
-    </div>
-    <div style="margin-top:10px;padding:11px 13px;border-radius:var(--radius-sm);background:${d.bg};border:0.5px solid ${d.c}40">
-      <div style="font-size:10px;font-weight:600;color:${d.c};text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px">Score decision</div>
-      <div style="font-size:14px;font-weight:600;color:${d.c};margin-bottom:3px">${d.title}</div>
-      <div style="font-size:12.5px;color:var(--text2);line-height:1.6">${d.sub}</div>
-    </div>
-  </div>
-  ${ratingHTML('final', step.exitScript)}`;
-}
-
-function renderDebrief(step) {
-  const a = S.debriefAnswers;
-  const qHTML = step.questions.map(q => {
-    const cur = a[q.key];
-    const btns = q.opts.map(o => {
-      const sel = cur === o.v ? `d-${o.v}` : '';
-      return `<button class="d-btn ${sel}" onclick="setDebrief('${q.key}','${o.v}')">${o.l}</button>`;
-    }).join('');
+function renderDebrief(step){
+  const a=S.debriefAnswers;
+  const qHTML=step.dbQuestions.map(q=>{
+    const cur=a[q.key];
+    const btns=q.opts.map(o=>`<button class="d-btn ${cur===o.v?`d-${o.v}`:''}" onclick="setDebrief('${q.key}','${o.v}')">${o.l}</button>`).join('');
     return `<div class="debrief-q"><div class="db-lbl">Reflect</div><div class="db-q">${injectName(q.text)}</div><div class="d-opts">${btns}</div></div>`;
   }).join('');
-
-  const answered = Object.keys(a).length;
-  let verdictHTML = '';
-  if (answered >= 3) {
-    const gs = Object.values(a).filter(v => v === 'g').length;
-    const rs = Object.values(a).filter(v => v === 'r').length;
-    let v = {};
-    if (rs >= 2) v = { bg: '#FCEBEB', c: '#A32D2D', title: 'Reject', sub: `Your gut and your notes are pointing the same direction — ${fn()} is not the right fit right now. Trust that.` };
-    else if (gs >= 4) v = { bg: '#EAF3DE', c: '#3B6D11', title: 'Move forward', sub: `Across the board, ${fn()} showed up. Your instincts and the signals are aligned. Proceed with confidence.` };
-    else v = { bg: '#FAEEDA', c: '#BA7517', title: '50/50 — needs more', sub: `There's enough here to be curious, but not enough to be confident. A second conversation focused on the flagged areas will tell you more.` };
-    verdictHTML = `<div class="verdict-box" style="background:${v.bg};border-color:${v.c}40">
-      <div style="font-size:10px;font-weight:600;color:${v.c};text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">Your gut verdict</div>
-      <div style="font-size:20px;font-weight:600;color:${v.c};margin-bottom:5px">${v.title}</div>
-      <div style="font-size:13px;color:var(--text2);line-height:1.6">${v.sub}</div>
-    </div>`;
+  const answered=Object.keys(a).length;
+  let verdictHTML='';
+  if(answered>=3){
+    const gs=Object.values(a).filter(v=>v==='g').length,rs=Object.values(a).filter(v=>v==='r').length;
+    let v;
+    if(rs>=2) v={bg:'#FCEBEB',c:'#A32D2D',title:'Reject',sub:`Your gut and your notes are pointing the same direction — ${fn()} is not the right fit right now. Trust that.`};
+    else if(gs>=4) v={bg:'#EAF3DE',c:'#3B6D11',title:'Move forward',sub:`Across the board, ${fn()} showed up. Your instincts and the signals are aligned.`};
+    else v={bg:'#FAEEDA',c:'#BA7517',title:'50/50 — needs more',sub:`There's enough to be curious, but not enough to be confident. A second conversation on the flagged areas will tell you more.`};
+    verdictHTML=`<div class="verdict-box" style="background:${v.bg};border-color:${v.c}40"><div style="font-size:10px;font-weight:600;color:${v.c};text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">Gut verdict</div><div style="font-size:20px;font-weight:600;color:${v.c};margin-bottom:5px">${v.title}</div><div style="font-size:13px;color:var(--text2);line-height:1.6">${v.sub}</div></div>`;
   } else {
-    verdictHTML = `<div class="verdict-pending">Answer at least 3 questions to generate your verdict.</div>`;
+    verdictHTML=`<div class="verdict-pending">Answer at least 3 questions to generate your verdict.</div>`;
   }
-
-  return `<div style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.6">Call is done. Step back and answer honestly — your gut matters as much as the scores.</div>
-  ${qHTML}${verdictHTML}
-  <div style="margin-top:12px">
-    <button class="pdf-btn" onclick="generatePDF()">Export PDF summary</button>
-    <button class="save-cand-btn" onclick="saveCandidate()">Save to history</button>
+  const s=Object.values(S.ratings).filter(r=>r==='strong').length,c=Object.values(S.ratings).filter(r=>r==='caution').length,e=Object.values(S.ratings).filter(r=>r==='exit').length;
+  return `<div style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.6">Call is done. Step back and answer honestly.</div>
+  <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:10px 14px;margin-bottom:14px;display:flex;gap:16px;flex-wrap:wrap">
+    <span style="font-size:13px"><span style="font-weight:700;color:var(--green)">${s}</span> <span style="color:var(--text3)">strong</span></span>
+    <span style="font-size:13px"><span style="font-weight:700;color:var(--amber)">${c}</span> <span style="color:var(--text3)">caution</span></span>
+    <span style="font-size:13px"><span style="font-weight:700;color:var(--red)">${e}</span> <span style="color:var(--text3)">exit</span></span>
   </div>
+  ${qHTML}${verdictHTML}
+  <div style="margin-top:12px"><button class="pdf-btn" onclick="generatePDF()">Export PDF</button><button class="save-cand-btn" onclick="saveCandidate()">Save to history</button></div>
   ${noteHTML('debrief')}`;
 }
 
 // ── ACTIONS ───────────────────────────────────────────────────────────────────
+function setChoice(key,val){S.choices[key]=val;saveSession();renderStep();}
+function setDebrief(key,val){S.debriefAnswers[key]=val;saveSession();renderStep();}
+function rate(id,val){S.ratings[id]=val;saveSession();updatePills();renderStep();}
 
-function setChoice(key, val) {
-  S.choices[key] = val;
-  if (key === 'exp') { S.hasExp = val; updateExpPill(); }
-  saveSession(); renderStep();
+function saveCandidate(){
+  if(!S.candName.trim()){alert('Enter a candidate name first.');return;}
+  const s=Object.values(S.ratings).filter(r=>r==='strong').length,e=Object.values(S.ratings).filter(r=>r==='exit').length,c=Object.values(S.ratings).filter(r=>r==='caution').length;
+  const a=S.debriefAnswers,gs=Object.values(a).filter(v=>v==='g').length,rs=Object.values(a).filter(v=>v==='r').length;
+  let verdict='Pending';
+  if(Object.keys(a).length>=3){if(rs>=2)verdict='Reject';else if(gs>=4)verdict='Move forward';else verdict='50/50';}
+  saveHistory({id:Date.now(),name:S.candName,date:new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}),interviewer:S.user||'',strong:s,caution:c,exits:e,verdict,notes:{...S.notes},ratings:{...S.ratings},flags:[...(S.flags||[])]});
+  alert(`${S.candName} saved.`);
 }
 
-function setDebrief(key, val) {
-  S.debriefAnswers[key] = val;
-  saveSession(); renderStep();
-}
-
-function rate(id, val) {
-  S.ratings[id] = val;
-  saveSession(); updateVerdictPill(); renderStep();
-}
-
-function saveCandidate() {
-  if (!S.candName.trim()) { alert('Enter a candidate name first.'); return; }
-  const s = Object.values(S.ratings).filter(r => r === 'strong').length;
-  const e = Object.values(S.ratings).filter(r => r === 'exit').length;
-  const a = S.debriefAnswers;
-  const gs = Object.values(a).filter(v => v === 'g').length;
-  const rs = Object.values(a).filter(v => v === 'r').length;
-  let verdict = 'Pending';
-  if (Object.keys(a).length >= 3) {
-    if (rs >= 2) verdict = 'Reject';
-    else if (gs >= 4) verdict = 'Move forward';
-    else verdict = '50/50';
-  }
-  const c = Object.values(S.ratings).filter(r => r === 'caution').length;
-  const candidate = {
-    id: Date.now(),
-    name: S.candName,
-    date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-    interviewer: S.user || '',
-    exp: S.hasExp,
-    strong: s,
-    caution: c,
-    exits: e,
-    verdict,
-    notes: { ...S.notes },
-    ratings: { ...S.ratings },
-    flags: [...(S.flags || [])],
-  };
-  saveHistory(candidate);
-  alert(`${S.candName} saved to your history.`);
-}
-
-// ── HISTORY MODAL ─────────────────────────────────────────────────────────────
-
-function openHistory() {
-  const hist = loadHistory();
-  const modal = document.getElementById('hist-modal');
-  const list = document.getElementById('hist-list');
-  if (!hist.length) {
-    list.innerHTML = '<div class="hist-empty">No interviews saved yet.</div>';
-    modal.classList.add('open');
-    return;
-  }
-  const expLabel = { yes: 'Experienced', partial: 'Partial exp', no: 'No experience' };
-  const vColors = { 'Move forward': '#3B6D11', 'Reject': '#A32D2D', '50/50': '#BA7517', 'Pending': '#999' };
-  const rColor = r => r === 'strong' ? '#3B6D11' : r === 'caution' ? '#BA7517' : r === 'exit' ? '#A32D2D' : '#999';
-
-  list.innerHTML = '';
-  hist.forEach((h, idx) => {
-    const item = document.createElement('div');
-    item.className = 'hist-item';
-    item.style.cursor = 'pointer';
-
-    const vc = vColors[h.verdict] || '#999';
-    const header = document.createElement('div');
-    header.innerHTML = `
-      <div style="display:flex;align-items:center;justify-content:space-between">
-        <div style="display:flex;align-items:center;gap:8px">
-          <div class="hist-name">${h.name || 'Unnamed'}</div>
-          <span style="font-size:11px;font-weight:600;color:${vc}">${h.verdict || 'Pending'}</span>
-        </div>
-        <span style="font-size:18px;color:#aaa;font-weight:300" class="hist-chevron">+</span>
-      </div>
-      <div class="hist-meta">${h.date || ''}${h.interviewer ? ' · ' + h.interviewer : ''} · ${expLabel[h.exp]||'—'} · ${h.strong||0} strong · ${h.exits||0} exits</div>
-    `;
-
-    const detail = document.createElement('div');
-    detail.style.cssText = 'display:none;margin-top:12px;padding-top:12px;border-top:1px solid #eee';
-
-    // Flags
-    if (h.flags && h.flags.length) {
-      const flbl = document.createElement('div');
-      flbl.style.cssText = 'font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#999;margin-bottom:6px';
-      flbl.textContent = 'Flags';
-      detail.appendChild(flbl);
-      const frow = document.createElement('div');
-      frow.style.cssText = 'display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px';
-      h.flags.forEach(f => {
-        const chip = document.createElement('span');
-        const [bg, col] = f.color === 'green' ? ['#EAF3DE','#3B6D11'] : f.color === 'amber' ? ['#FAEEDA','#BA7517'] : ['#FCEBEB','#A32D2D'];
-        chip.style.cssText = `background:${bg};color:${col};font-size:11px;padding:2px 9px;border-radius:10px;font-weight:500`;
-        chip.textContent = (f.color === 'green' ? 'Green' : f.color === 'amber' ? 'Yellow' : 'Red') + ' · ' + (f.step || '') + (f.time ? ' · ' + f.time : '');
-        frow.appendChild(chip);
-      });
-      detail.appendChild(frow);
-    }
-
-    // Ratings and notes per section
-    const ratedSteps = (SCRIPT_DATA.steps || []).filter(st => st.rated);
-    const hasRatings = ratedSteps.some(st => h.ratings && h.ratings[st.id]);
-    if (hasRatings || (h.notes && Object.keys(h.notes).length)) {
-      const rlbl = document.createElement('div');
-      rlbl.style.cssText = 'font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#999;margin-bottom:8px';
-      rlbl.textContent = 'Ratings & notes';
-      detail.appendChild(rlbl);
-
-      ratedSteps.forEach(st => {
-        const r = h.ratings && h.ratings[st.id];
-        const n = h.notes && h.notes[st.id];
-        if (!r && !n) return;
-        const row = document.createElement('div');
-        row.style.cssText = 'display:flex;gap:10px;padding:6px 0;border-bottom:1px solid #f0f0f0;align-items:flex-start';
-        const nameCol = document.createElement('div');
-        nameCol.style.cssText = 'font-size:12px;color:#555;min-width:130px;flex-shrink:0;padding-top:1px';
-        nameCol.textContent = st.label;
-        const ratingCol = document.createElement('div');
-        ratingCol.style.cssText = `font-size:12px;font-weight:700;color:${rColor(r)};min-width:60px;flex-shrink:0`;
-        ratingCol.textContent = r ? r.charAt(0).toUpperCase() + r.slice(1) : '';
-        const noteCol = document.createElement('div');
-        noteCol.style.cssText = 'font-size:12px;color:#444;line-height:1.5';
-        noteCol.textContent = n || '';
-        row.appendChild(nameCol); row.appendChild(ratingCol); row.appendChild(noteCol);
-        detail.appendChild(row);
-      });
-
-      // Additional notes not tied to rated sections
-      if (h.notes) {
-        const ratedIds = ratedSteps.map(s => s.id);
-        const extra = Object.entries(h.notes).filter(([k, v]) => v && !ratedIds.includes(k));
-        extra.forEach(([k, v]) => {
-          const row = document.createElement('div');
-          row.style.cssText = 'padding:6px 0;border-bottom:1px solid #f0f0f0';
-          row.innerHTML = `<div style="font-size:11px;color:#888;margin-bottom:2px;text-transform:uppercase;letter-spacing:.04em">${k}</div><div style="font-size:12px;color:#444;line-height:1.5">${v}</div>`;
-          detail.appendChild(row);
-        });
-      }
-    }
-
-    // Score summary
-    if (h.strong !== undefined) {
-      const slbl = document.createElement('div');
-      slbl.style.cssText = 'font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#999;margin:10px 0 6px';
-      slbl.textContent = 'Score';
-      detail.appendChild(slbl);
-      const srow = document.createElement('div');
-      srow.style.cssText = 'display:flex;gap:7px;flex-wrap:wrap';
-      [['Strong', h.strong||0, '#EAF3DE', '#3B6D11'], ['Caution', h.caution||0, '#FAEEDA', '#BA7517'], ['Exit', h.exits||0, '#FCEBEB', '#A32D2D']].forEach(([label, count, bg, col]) => {
-        const chip = document.createElement('span');
-        chip.style.cssText = `background:${bg};color:${col};font-size:12px;font-weight:600;padding:4px 12px;border-radius:6px`;
-        chip.textContent = `${label}: ${count}`;
-        srow.appendChild(chip);
-      });
-      detail.appendChild(srow);
-    }
-
-    header.onclick = () => {
-      const isOpen = detail.style.display !== 'none';
-      detail.style.display = isOpen ? 'none' : 'block';
-      header.querySelector('.hist-chevron').textContent = isOpen ? '+' : '−';
-    };
-
-    item.appendChild(header);
-    item.appendChild(detail);
-    list.appendChild(item);
+function openHistory(){
+  const hist=loadHistory(),modal=document.getElementById('hist-modal'),list=document.getElementById('hist-list');
+  if(!hist.length){list.innerHTML='<div class="hist-empty">No interviews saved yet.</div>';modal.classList.add('open');return;}
+  const vColors={'Move forward':'#3B6D11','Reject':'#A32D2D','50/50':'#BA7517','Pending':'#999'};
+  const rColor=r=>r==='strong'?'#3B6D11':r==='caution'?'#BA7517':'#A32D2D';
+  list.innerHTML='';
+  hist.forEach(h=>{
+    const item=document.createElement('div');item.className='hist-item';
+    const vc=vColors[h.verdict]||'#999';
+    const header=document.createElement('div');
+    header.innerHTML=`<div style="display:flex;align-items:center;justify-content:space-between"><div style="display:flex;align-items:center;gap:8px"><div class="hist-name">${h.name||'Unnamed'}</div><span style="font-size:11px;font-weight:600;color:${vc}">${h.verdict||'Pending'}</span></div><span style="font-size:18px;color:#aaa" class="hist-chevron">+</span></div><div class="hist-meta">${h.date||''}${h.interviewer?' · '+h.interviewer:''} · ${h.strong||0} strong · ${h.exits||0} exits</div>`;
+    const detail=document.createElement('div');detail.style.cssText='display:none;margin-top:12px;padding-top:12px;border-top:1px solid #eee';
+    const ratedSteps=STEPS.filter(st=>st.rated);
+    ratedSteps.forEach(st=>{const r=h.ratings&&h.ratings[st.id],n=h.notes&&h.notes[st.id];if(!r&&!n)return;const row=document.createElement('div');row.style.cssText='display:flex;gap:10px;padding:6px 0;border-bottom:1px solid #f0f0f0';const nc=document.createElement('div');nc.style.cssText='font-size:12px;color:#555;min-width:130px;flex-shrink:0';nc.textContent=st.label;const rc=document.createElement('div');rc.style.cssText=`font-size:12px;font-weight:700;color:${rColor(r)};min-width:60px;flex-shrink:0`;rc.textContent=r?r.charAt(0).toUpperCase()+r.slice(1):'';const notec=document.createElement('div');notec.style.cssText='font-size:12px;color:#444;line-height:1.5';notec.textContent=n||'';row.appendChild(nc);row.appendChild(rc);row.appendChild(notec);detail.appendChild(row);});
+    header.onclick=()=>{const isOpen=detail.style.display!=='none';detail.style.display=isOpen?'none':'block';header.querySelector('.hist-chevron').textContent=isOpen?'+':'−';};
+    item.appendChild(header);item.appendChild(detail);list.appendChild(item);
   });
-
   modal.classList.add('open');
 }
+function closeHistory(){document.getElementById('hist-modal').classList.remove('open');}
 
-function closeHistory() {
-  document.getElementById('hist-modal').classList.remove('open');
-}
-
-// ── PDF EXPORT ────────────────────────────────────────────────────────────────
-
-function generatePDF() {
-  const name = S.candName || 'Candidate';
-  const exp = { yes: 'Experienced', partial: 'Partial experience', no: 'No experience' }[S.hasExp] || 'Not assessed';
-  const s = Object.values(S.ratings).filter(r => r === 'strong').length;
-  const c = Object.values(S.ratings).filter(r => r === 'caution').length;
-  const e = Object.values(S.ratings).filter(r => r === 'exit').length;
-  const a = S.debriefAnswers;
-  const gs = Object.values(a).filter(v => v === 'g').length;
-  const rs = Object.values(a).filter(v => v === 'r').length;
-  let gut = 'Pending';
-  if (Object.keys(a).length >= 3) {
-    if (rs >= 2) gut = 'Reject';
-    else if (gs >= 4) gut = 'Move forward';
-    else gut = '50/50 — second conversation';
-  }
-  const gutColor = { 'Move forward': '#3B6D11', 'Reject': '#A32D2D' }[gut] || '#BA7517';
-  const ratedSteps = SCRIPT_DATA.steps.filter(st => st.rated);
-  const ratingsHTML = ratedSteps.map(st => {
-    const r = S.ratings[st.id];
-    const n = S.notes[st.id];
-    if (!r && !n) return '';
-    const rColor = r === 'strong' ? '#3B6D11' : r === 'caution' ? '#BA7517' : '#A32D2D';
-    return `<tr><td style="padding:7px 10px;font-size:13px;border-bottom:1px solid #eee;color:#333">${st.label}</td><td style="padding:7px 10px;font-size:13px;border-bottom:1px solid #eee;font-weight:600;color:${rColor}">${r ? r.charAt(0).toUpperCase() + r.slice(1) : '—'}</td><td style="padding:7px 10px;font-size:13px;border-bottom:1px solid #eee;color:#555">${n || ''}</td></tr>`;
-  }).join('');
-  const flagsHTML = S.flags.length ? S.flags.map(f => {
-    const [bg, color] = f.color === 'green' ? ['#EAF3DE','#3B6D11'] : f.color === 'amber' ? ['#FAEEDA','#BA7517'] : ['#FCEBEB','#A32D2D'];
-    const label = f.color === 'green' ? 'Green' : f.color === 'amber' ? 'Yellow' : 'Red';
-    return `<span style="display:inline-block;padding:2px 9px;border-radius:10px;font-size:12px;margin:2px;background:${bg};color:${color}">${label} · ${f.step} · ${f.time}</span>`;
-  }).join('') : '<span style="font-size:13px;color:#999">None</span>';
-  const addNotes = Object.entries(S.notes).filter(([k, v]) => v && !ratedSteps.map(s => s.id).includes(k));
-  const addNotesHTML = addNotes.length ? addNotes.map(([k, v]) => `<div style="margin-bottom:10px"><div style="font-size:11px;color:#888;margin-bottom:2px;text-transform:uppercase;letter-spacing:.05em">${k}</div><div style="font-size:13px;color:#333">${v}</div></div>`).join('') : '<div style="font-size:13px;color:#999">None</div>';
-  const w = window.open('', '_blank');
-  w.document.write(`<!DOCTYPE html><html><head><title>${name} — Interview Summary</title>
-  <style>body{font-family:system-ui,sans-serif;color:#1a1a1a;padding:40px;max-width:700px;margin:0 auto}h1{font-size:22px;font-weight:700;margin-bottom:4px}h2{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#888;margin:24px 0 8px;border-bottom:1px solid #eee;padding-bottom:4px}table{width:100%;border-collapse:collapse}th{text-align:left;font-size:11px;color:#888;padding:6px 10px;background:#f9f9f9;border-bottom:1px solid #ddd;font-weight:600}@media print{.no-print{display:none}}</style></head><body>
-  <h1>${name}</h1>
-  <div style="font-size:13px;color:#888;margin-bottom:6px">${new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})} · Adjuster Specialist · ${exp} · Interviewed by ${S.user}</div>
-  <h2>Quick flags</h2><div style="margin-bottom:4px">${flagsHTML}</div>
-  <h2>Ratings & notes</h2>
-  <table><tr><th>Section</th><th>Rating</th><th>Notes</th></tr>${ratingsHTML}</table>
-  <h2>Score summary</h2>
-  <div style="display:flex;gap:10px;margin-bottom:8px;flex-wrap:wrap">
-    <div style="background:#EAF3DE;color:#3B6D11;padding:7px 14px;border-radius:7px;font-size:13px;font-weight:600">Strong: ${s}</div>
-    <div style="background:#FAEEDA;color:#BA7517;padding:7px 14px;border-radius:7px;font-size:13px;font-weight:600">Caution: ${c}</div>
-    <div style="background:#FCEBEB;color:#A32D2D;padding:7px 14px;border-radius:7px;font-size:13px;font-weight:600">Exit: ${e}</div>
-  </div>
-  <h2>Gut verdict</h2>
-  <div style="font-size:18px;font-weight:700;color:${gutColor};margin-bottom:4px">${gut}</div>
-  <h2>Additional notes</h2>${addNotesHTML}
-  <div style="margin-top:36px;text-align:center" class="no-print"><button onclick="window.print()" style="padding:9px 22px;background:#1a1a1a;color:white;border:none;border-radius:7px;font-size:13px;cursor:pointer;font-weight:500">Print / Save as PDF</button></div>
-  </body></html>`);
+function generatePDF(){
+  const name=S.candName||'Candidate';
+  const s=Object.values(S.ratings).filter(r=>r==='strong').length,c=Object.values(S.ratings).filter(r=>r==='caution').length,e=Object.values(S.ratings).filter(r=>r==='exit').length;
+  const a=S.debriefAnswers,gs=Object.values(a).filter(v=>v==='g').length,rs=Object.values(a).filter(v=>v==='r').length;
+  let gut='Pending';if(Object.keys(a).length>=3){if(rs>=2)gut='Reject';else if(gs>=4)gut='Move forward';else gut='50/50';}
+  const gutColor={'Move forward':'#3B6D11','Reject':'#A32D2D'}[gut]||'#BA7517';
+  const ratedSteps=STEPS.filter(st=>st.rated);
+  const ratingsHTML=ratedSteps.map(st=>{const r=S.ratings[st.id],n=S.notes[st.id];if(!r&&!n)return '';const rc=r==='strong'?'#3B6D11':r==='caution'?'#BA7517':'#A32D2D';return `<tr><td style="padding:7px 10px;font-size:13px;border-bottom:1px solid #eee">${st.label}</td><td style="padding:7px 10px;font-size:13px;font-weight:600;color:${rc};border-bottom:1px solid #eee">${r?r.charAt(0).toUpperCase()+r.slice(1):'—'}</td><td style="padding:7px 10px;font-size:13px;border-bottom:1px solid #eee;color:#555">${n||''}</td></tr>`;}).join('');
+  const flagsHTML=S.flags.length?S.flags.map(f=>{const[bg,col]=f.color==='green'?['#EAF3DE','#3B6D11']:f.color==='amber'?['#FAEEDA','#BA7517']:['#FCEBEB','#A32D2D'];const l=f.color==='green'?'Green':f.color==='amber'?'Yellow':'Red';return `<span style="display:inline-block;padding:2px 9px;border-radius:10px;font-size:12px;margin:2px;background:${bg};color:${col}">${l} · ${f.step} · ${f.time}</span>`;}).join(''):'None';
+  const w=window.open('','_blank');
+  w.document.write(`<!DOCTYPE html><html><head><title>${name}</title><style>body{font-family:system-ui,sans-serif;padding:40px;max-width:700px;margin:0 auto}h2{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#888;margin:24px 0 8px;border-bottom:1px solid #eee;padding-bottom:4px}table{width:100%;border-collapse:collapse}th{text-align:left;font-size:11px;color:#888;padding:6px 10px;background:#f9f9f9;border-bottom:1px solid #ddd}@media print{.np{display:none}}</style></head><body><h1 style="font-size:22px;font-weight:700">${name}</h1><p style="font-size:13px;color:#888">${new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})} · Adjuster Specialist · ${S.user}</p><h2>Flags</h2><div>${flagsHTML}</div><h2>Ratings</h2><table><tr><th>Section</th><th>Rating</th><th>Notes</th></tr>${ratingsHTML}</table><h2>Score</h2><div style="display:flex;gap:10px;flex-wrap:wrap"><div style="background:#EAF3DE;color:#3B6D11;padding:7px 14px;border-radius:7px;font-size:13px;font-weight:600">Strong: ${s}</div><div style="background:#FAEEDA;color:#BA7517;padding:7px 14px;border-radius:7px;font-size:13px;font-weight:600">Caution: ${c}</div><div style="background:#FCEBEB;color:#A32D2D;padding:7px 14px;border-radius:7px;font-size:13px;font-weight:600">Exit: ${e}</div></div><h2>Verdict</h2><div style="font-size:18px;font-weight:700;color:${gutColor}">${gut}</div><div style="margin-top:36px;text-align:center" class="np"><button onclick="window.print()" style="padding:9px 22px;background:#1a1a1a;color:#fff;border:none;border-radius:7px;font-size:13px;cursor:pointer">Print / Save PDF</button></div></body></html>`);
   w.document.close();
 }
 
 // ── NAVIGATION ────────────────────────────────────────────────────────────────
-
-function renderSidebar() {
-  const steps = SCRIPT_DATA.steps;
-  const secs = {};
-  steps.forEach((s, i) => { if (!secs[s.section]) secs[s.section] = []; secs[s.section].push({ ...s, idx: i }); });
-  let html = '';
-  for (const [sec, items] of Object.entries(secs)) {
-    html += `<div class="sb-sec">${sec}</div>`;
-    items.forEach(item => {
-      const done = item.idx < S.current, active = item.idx === S.current;
-      const r = S.ratings[item.id];
-      const rColor = r === 'strong' ? '#3B6D11' : r === 'caution' ? '#BA7517' : '#A32D2D';
-      let cls = done ? 'done' : ''; if (active) cls = 'active';
-      html += `<div class="sb-item ${cls}" onclick="goTo(${item.idx})"><span class="sb-dot"></span><span style="flex:1">${item.label}</span>${r ? `<span class="sb-rating" style="color:${rColor}">${r === 'strong' ? '✓' : r === 'caution' ? '~' : '✗'}</span>` : ''}</div>`;
+function renderSidebar(){
+  const secs={};
+  STEPS.forEach((s,i)=>{if(!secs[s.section])secs[s.section]=[];secs[s.section].push({...s,idx:i});});
+  let html='';
+  for(const[sec,items] of Object.entries(secs)){
+    html+=`<div class="sb-sec">${sec}</div>`;
+    items.forEach(item=>{
+      const done=item.idx<S.current,active=item.idx===S.current;
+      const r=S.ratings[item.id];const rc=r==='strong'?'#3B6D11':r==='caution'?'#BA7517':'#A32D2D';
+      let cls=done?'done':'';if(active)cls='active';
+      html+=`<div class="sb-item ${cls}" onclick="goTo(${item.idx})"><span class="sb-dot"></span><span style="flex:1">${item.label}</span>${r?`<span class="sb-rating" style="color:${rc}">${r==='strong'?'✓':r==='caution'?'~':'✗'}</span>`:''}</div>`;
     });
-    html += `<div class="sb-divider"></div>`;
+    html+=`<div class="sb-divider"></div>`;
   }
-  document.getElementById('sidebar').innerHTML = html;
+  document.getElementById('sidebar').innerHTML=html;
 }
 
-function renderStep() {
-  const steps = SCRIPT_DATA.steps;
-  const step = steps[S.current];
-  document.getElementById('prog-fill').style.width = Math.round((S.current / (steps.length - 1)) * 100) + '%';
-  const secLabels = { 'Fast filter': 'Fast filter', 'Vetting': 'Vetting', 'Close': 'Close', 'Debrief': 'Debrief' };
-  const sa = document.getElementById('scroll-area');
-  sa.innerHTML = `
-    <div class="step-eye">${secLabels[step.section] || step.section} · ${S.current + 1} of ${steps.length}</div>
+function renderStep(){
+  const step=STEPS[S.current];
+  document.getElementById('prog-fill').style.width=Math.round((S.current/(STEPS.length-1))*100)+'%';
+  const sa=document.getElementById('scroll-area');
+  sa.innerHTML=`
+    <div class="step-eye">${step.section} · ${S.current+1} of ${STEPS.length}</div>
     <div class="step-title">${step.label}</div>
     ${renderStepContent(step)}
     <div class="nav-row">
-      ${S.current > 0 ? `<button class="btn-sec" onclick="goTo(${S.current - 1})">← Back</button>` : ''}
-      ${S.current < steps.length - 1 ? `<button class="btn-primary" onclick="goTo(${S.current + 1})">Next →</button>` : `<button class="btn-primary" style="background:var(--green)">Done</button>`}
+      ${S.current>0?`<button class="btn-sec" onclick="goTo(${S.current-1})">← Back</button>`:''}
+      ${S.current<STEPS.length-1?`<button class="btn-primary" onclick="goTo(${S.current+1})">Next →</button>`:`<button class="btn-primary" style="background:var(--green)">Done</button>`}
     </div><div style="height:40px"></div>`;
-  renderSidebar();
-  sa.scrollTop = 0;
+  renderSidebar();sa.scrollTop=0;
 }
 
-function goTo(idx) { S.current = idx; saveSession(); renderStep(); }
+function goTo(idx){S.current=idx;saveSession();renderStep();}
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
-
-document.addEventListener('DOMContentLoaded', () => {
-  // User buttons
-  SCRIPT_DATA.users.forEach(u => {
-    const btn = document.createElement('button');
-    btn.className = 'user-btn';
-    btn.textContent = u;
-    btn.onclick = () => login(u);
-    document.getElementById('user-btns').appendChild(btn);
-  });
-
-  // New interview button
-  document.getElementById('new-interview-btn').onclick = () => {
-    if (confirm('Start a new interview? Current session will be saved to history if you\'ve entered a name.')) {
-      if (S.candName) saveCandidate();
-      newSession();
-    }
-  };
-
-  // Candidate name
-  document.getElementById('cand-name').addEventListener('input', function () {
-    S.candName = this.value;
-    saveSession();
-    renderStep();
-  });
-
-  // Flag buttons
-  document.querySelectorAll('.flag-btn').forEach(btn => {
-    btn.addEventListener('click', () => addFlag(btn.dataset.color));
-  });
-
-  // Auto-login if returning user
-  const last = localStorage.getItem('proliance_lastUser');
-  if (last && SCRIPT_DATA.users.includes(last)) login(last);
+document.addEventListener('DOMContentLoaded',()=>{
+  USERS.forEach(u=>{const btn=document.createElement('button');btn.className='user-btn';btn.textContent=u;btn.onclick=()=>login(u);document.getElementById('user-btns').appendChild(btn);});
+  document.getElementById('new-interview-btn').onclick=()=>{if(confirm('Start a new interview?')){if(S.candName)saveCandidate();newSession();}};
+  document.getElementById('cand-name').addEventListener('input',function(){S.candName=this.value;saveSession();renderStep();});
+  document.querySelectorAll('.flag-btn').forEach(btn=>{btn.addEventListener('click',()=>addFlag(btn.dataset.color));});
+  const last=localStorage.getItem('prol_lastUser');
+  if(last&&USERS.includes(last))login(last);
 });
-
 </script>
 </body>
 </html>
