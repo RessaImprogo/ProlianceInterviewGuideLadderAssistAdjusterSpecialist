@@ -10,6 +10,7 @@ const S = {
   hasExp: null,
   flags: [],
   user: null,
+  cardEdits: {},
 };
 
 // ── STORAGE ──────────────────────────────────────────────────────────────────
@@ -72,6 +73,7 @@ function login(user) {
   document.getElementById('login-screen').style.display = 'none';
   document.getElementById('app').classList.add('visible');
   loadSession();
+  S.cardEdits = load('cardEdits', {});
   renderStep();
   renderSidebar();
 }
@@ -139,17 +141,40 @@ function updateVerdictPill() {
 
 // ── CARD BUILDERS ─────────────────────────────────────────────────────────────
 
-function cardHTML(type, text, editable = true) {
+// Card/exit-block edits are saved keyed by a stable path string (e.g. "field.c3"),
+// persisted per-user in localStorage, independent of per-candidate session data —
+// so they act as permanent script corrections, not notes that reset with newSession().
+
+function saveCardEdit(key, el) {
+  if (!key) return;
+  S.cardEdits[key] = el.innerHTML;
+  save('cardEdits', S.cardEdits);
+}
+
+function resetCardEdit(key) {
+  delete S.cardEdits[key];
+  save('cardEdits', S.cardEdits);
+  renderStep();
+}
+
+function cardHTML(type, text, key, editable = true) {
   const tagLabels = { ask: 'ASK', say: 'SAY', note: 'NOTE', rule: 'RULE', listen: 'LISTEN FOR', exit: 'EXIT', branch: 'EXPERIENCED TRACK', context: 'ROLE BRIEFING' };
   const isAsk = type === 'ask';
   const textClass = isAsk ? 'q-text' : 'kv-text';
-  const editAttr = editable ? 'contenteditable="true"' : '';
-  const editHint = editable ? '<span class="edit-hint">click to edit</span>' : '';
-  return `<div class="card">${editHint}<span class="tag t-${type}">${tagLabels[type] || type.toUpperCase()}</span><div class="${textClass} editable" ${editAttr}>${injectName(text)}</div></div>`;
+  const edited = !!(key && S.cardEdits[key] !== undefined);
+  const editAttr = editable ? (key ? `contenteditable="true" onblur="saveCardEdit('${key}', this)"` : 'contenteditable="true"') : '';
+  const editHint = editable ? `<span class="edit-hint">${edited ? 'edited · click to edit' : 'click to edit'}</span>` : '';
+  const resetBtn = edited ? `<span onclick="resetCardEdit('${key}')" style="cursor:pointer;font-size:10px;color:var(--text3,#999);margin-left:8px;text-decoration:underline">reset</span>` : '';
+  const content = edited ? S.cardEdits[key] : injectName(text);
+  return `<div class="card">${editHint}<span class="tag t-${type}">${tagLabels[type] || type.toUpperCase()}</span>${resetBtn}<div class="${textClass} editable" ${editAttr}>${content}</div></div>`;
 }
 
-function exitBlockHTML(script) {
-  return `<div class="exit-block"><div class="exit-lbl">Exit — say verbatim</div><div class="exit-say editable" contenteditable="true">${injectName(script)}</div></div>`;
+function exitBlockHTML(script, key) {
+  const edited = !!(key && S.cardEdits[key] !== undefined);
+  const editAttr = key ? `onblur="saveCardEdit('${key}', this)"` : '';
+  const resetBtn = edited ? `<span onclick="resetCardEdit('${key}')" style="cursor:pointer;font-size:10px;color:#999;margin-left:8px;text-decoration:underline">reset</span>` : '';
+  const content = edited ? S.cardEdits[key] : injectName(script);
+  return `<div class="exit-block"><div class="exit-lbl">Exit — say verbatim${resetBtn}</div><div class="exit-say editable" contenteditable="true" ${editAttr}>${content}</div></div>`;
 }
 
 function choiceHTML(key, question, options) {
@@ -171,7 +196,7 @@ function ratingHTML(id, exitScript) {
       <button class="r-btn r-c ${r==='caution'?'on':''}" onclick="rate('${id}','caution')">Caution</button>
       <button class="r-btn r-e ${r==='exit'?'on':''}" onclick="rate('${id}','exit')">Exit</button>
     </div>
-    ${r === 'exit' && exitScript ? exitBlockHTML(exitScript) : ''}
+    ${r === 'exit' && exitScript ? exitBlockHTML(exitScript, `${id}.exitscript`) : ''}
   </div>`;
 }
 
@@ -197,10 +222,9 @@ function renderStepContent(step) {
   if (step.section === 'Vetting' && step.id !== 'roleexplain') html += trackBadge();
 
   // Render main cards
-  if (step.cards) step.cards.forEach(c => { html += cardHTML(c.type, c.text); });
+  if (step.cards) step.cards.forEach((c, i) => { html += cardHTML(c.type, c.text, `${step.id}.c${i}`); });
 
   // Step-specific rendering
-  if (step.id === 'consent') html += renderConsent(step);
   if (step.id === 'intent') html += renderIntent(step);
   if (step.id === 'background') html += renderBackground(step);
   if (step.id === 'gap') html += renderGap(step);
@@ -209,10 +233,10 @@ function renderStepContent(step) {
   if (step.id === 'debrief') html += renderDebrief(step);
 
   // Exp/no-exp branched cards for vetting steps
-  if (['pressure','conviction','field','learning','docs','resilience'].includes(step.id)) {
-    if (exp === 'yes' && step.expCards) step.expCards.forEach(c => { html += cardHTML(c.type, c.text || c.label || ''); });
-    if ((exp === 'no' || exp === 'partial') && step.noExpCards) step.noExpCards.forEach(c => { html += cardHTML(c.type, c.text); });
-    if (step.sharedListenCards) step.sharedListenCards.forEach(c => { html += cardHTML(c.type, c.text); });
+  if (['pressure','conviction','field','learning','docs','resilience','personality'].includes(step.id)) {
+    if (exp === 'yes' && step.expCards) step.expCards.forEach((c, i) => { html += cardHTML(c.type, c.text || c.label || '', `${step.id}.exp${i}`); });
+    if ((exp === 'no' || exp === 'partial') && step.noExpCards) step.noExpCards.forEach((c, i) => { html += cardHTML(c.type, c.text, `${step.id}.noexp${i}`); });
+    if (step.sharedListenCards) step.sharedListenCards.forEach((c, i) => { html += cardHTML(c.type, c.text, `${step.id}.shared${i}`); });
   }
 
   // Rating block for rated steps
@@ -224,33 +248,10 @@ function renderStepContent(step) {
   return html;
 }
 
-function renderConsent(step) {
-  let html = '';
-  step.choices.forEach(ch => { html += choiceHTML(ch.key, ch.question, ch.options); });
-  if (S.choices['showTable'] === 'yes') {
-    html += `<div class="card"><span class="tag t-note">COMP TABLE</span>
-      <table class="comp-table">
-        <tr><th></th><th>Old</th><th>New</th><th>Change</th></tr>
-        <tr><td colspan="4" style="font-size:11px;color:var(--text3);padding-top:6px">Option 1 — Base</td></tr>
-        <tr><td>Base pay</td><td>$900/wk</td><td>$800/wk</td><td class="dn">−$100</td></tr>
-        <tr><td>Full approval</td><td>$100</td><td>$150</td><td class="up">+$50</td></tr>
-        <tr><td>Partial approval</td><td>$50</td><td>$50</td><td>—</td></tr>
-        <tr><td>Denial</td><td>—</td><td>$20</td><td class="up">New</td></tr>
-        <tr><td colspan="4" style="font-size:11px;color:var(--text3);padding-top:6px">Option 2 — Commission only</td></tr>
-        <tr><td>Full approval</td><td>$200</td><td>$250</td><td class="up">+$50</td></tr>
-        <tr><td>Partial approval</td><td>$100</td><td>$150</td><td class="up">+$50</td></tr>
-        <tr><td>Denial</td><td>$50</td><td>$50</td><td>—</td></tr>
-      </table></div>`;
-  }
-  const resp = S.choices['consent'];
-  if (resp === 'hesitant' || resp === 'no') html += exitBlockHTML(step.exits[resp] || '');
-  return html;
-}
-
 function renderIntent(step) {
   let html = '';
   step.choices.forEach(ch => { html += choiceHTML(ch.key, ch.question, ch.options); });
-  if (S.choices['intent'] === 'spray') html += exitBlockHTML(step.exits.spray || '');
+  if (S.choices['intent'] === 'spray') html += exitBlockHTML(step.exits.spray || '', 'intent.exit.spray');
   return html;
 }
 
@@ -258,7 +259,7 @@ function renderBackground(step) {
   let html = '';
   step.choices.forEach(ch => { html += choiceHTML(ch.key, ch.question, ch.options); });
   const exp = S.choices['exp'];
-  if (exp === 'no') html += exitBlockHTML(step.exits.no || '');
+  if (exp === 'no') html += exitBlockHTML(step.exits.no || '', 'background.exit.no');
   if (exp === 'partial' && step.partialNote) {
     html += `<div class="partial-note">${injectName(step.partialNote)}</div>`;
   }
@@ -274,21 +275,21 @@ function renderGap(step) {
   vf.choices.forEach(ch => { html += choiceHTML(ch.key, ch.question, ch.options); });
   const reason = S.choices['leavingReason'];
   if (!reason) return html;
-  if (reason === 'unclear') { html += exitBlockHTML(vf.exits.unclear || ''); return html; }
+  if (reason === 'unclear') { html += exitBlockHTML(vf.exits.unclear || '', 'gap.exit.unclear'); return html; }
   const branch = vf[reason];
   if (!branch) return html;
-  if (branch.cards) branch.cards.forEach(c => { html += cardHTML(c.type, c.text); });
+  if (branch.cards) branch.cards.forEach((c, i) => { html += cardHTML(c.type, c.text, `gap.${reason}.${i}`); });
   if (branch.choices) branch.choices.forEach(ch => { html += choiceHTML(ch.key, ch.question, ch.options); });
   if (branch.exits) {
     Object.entries(branch.exits).forEach(([val, script]) => {
-      if (S.choices[branch.choices?.[0]?.key] === val) html += exitBlockHTML(script);
+      if (S.choices[branch.choices?.[0]?.key] === val) html += exitBlockHTML(script, `gap.exit.${reason}.${val}`);
     });
   }
   if (reason === 'financial' && branch.urgency && S.choices['finPain'] === 'yes') {
     const urg = branch.urgency;
-    if (urg.cards) urg.cards.forEach(c => { html += cardHTML(c.type, c.text); });
+    if (urg.cards) urg.cards.forEach((c, i) => { html += cardHTML(c.type, c.text, `gap.financial.urgency.${i}`); });
     if (urg.choices) urg.choices.forEach(ch => { html += choiceHTML(ch.key, ch.question, ch.options); });
-    if (S.choices['urgency'] === 'later' && urg.exits?.later) html += exitBlockHTML(urg.exits.later);
+    if (S.choices['urgency'] === 'later' && urg.exits?.later) html += exitBlockHTML(urg.exits.later, 'gap.exit.financial.urgency.later');
   }
   return html;
 }
@@ -298,11 +299,11 @@ function renderRoleExplain(step) {
   let html = '';
   if (exp === 'yes') {
     html += trackBadge();
-    if (step.expCards) step.expCards.forEach(c => { html += cardHTML(c.type, c.text); });
+    if (step.expCards) step.expCards.forEach((c, i) => { html += cardHTML(c.type, c.text, `roleexplain.exp${i}`); });
   } else {
     if (exp === 'partial') html += `<div class="track-badge tb-partial">Partial experience track</div>`;
     else if (exp === 'no') html += `<div class="track-badge tb-noexp">No experience track</div>`;
-    if (step.noExpCards) step.noExpCards.forEach(c => { html += cardHTML(c.type, c.text); });
+    if (step.noExpCards) step.noExpCards.forEach((c, i) => { html += cardHTML(c.type, c.text, `roleexplain.noexp${i}`); });
   }
   return html;
 }
