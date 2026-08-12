@@ -4,24 +4,6 @@
 const SCRIPT_DATA = {
   steps: [
     {
-      id: 'consent',
-      label: 'Comp consent',
-      section: 'Fast filter',
-      cards: [
-        { type: 'ask', text: 'Before we go any further — I want to be upfront with you, [name]. Since you applied, we\'ve updated our compensation structure. The base moved from $900 to $800 weekly, but the performance payouts increased across the board. Are you still happy to move forward under the new structure?' },
-        { type: 'note', text: 'If they ask about the breakdown — toggle the comp table. If hesitant or no — exit immediately. No extra handling needed.' },
-      ],
-      compTable: true,
-      choices: [
-        { key: 'showTable', question: 'Did they ask about the breakdown?', options: [{ val: 'yes', label: 'Yes — show table', color: 'blue' }, { val: 'no', label: 'No — moving on', color: 'green' }] },
-        { key: 'consent', question: 'Their response?', options: [{ val: 'yes', label: 'Yes — proceed', color: 'green' }, { val: 'hesitant', label: 'Hesitant', color: 'red' }, { val: 'no', label: 'No — opts out', color: 'red' }] },
-      ],
-      exits: {
-        hesitant: 'Totally fair, [name] — I appreciate you being upfront about that. No pressure at all. If anything changes down the road, feel free to reach back out.',
-        no: 'Totally fair, [name] — I appreciate you being upfront about that. No pressure at all. If anything changes down the road, feel free to reach back out.',
-      }
-    },
-    {
       id: 'intent',
       label: 'Intentionality',
       section: 'Fast filter',
@@ -101,6 +83,34 @@ const SCRIPT_DATA = {
       }
     },
     {
+      id: 'personality',
+      label: 'Personality screen',
+      section: 'Fast filter',
+      rated: true,
+      cards: [
+        { type: 'note', text: '<b>How to introduce this section:</b> "This position is very relationship-driven — you\'re meeting homeowners and insurance adjusters, inspecting properties, and advocating for the client. So I\'m going to throw a few situations at you just to understand your natural communication style."<br><br>Don\'t lead with "you\'ll deal with difficult adjusters who deny you and you\'ll have to fight them" — that just sounds miserable. Frame it as people skills + problem-solving + advocacy, because that\'s actually what you\'re screening for.' },
+        { type: 'say', text: 'You don\'t need experience in insurance to answer these. I\'m more interested in how you naturally communicate and handle different personalities.' },
+        { type: 'ask', text: '[name], you\'re meeting someone for the first time and you know you\'ll need to work together to accomplish something. How do you normally approach that person?' },
+        { type: 'listen', text: '<b>Rapport:</b> Are they naturally personable? Do they build relationships easily — or are they very transactional?' },
+        { type: 'note', text: 'Give context before the next one — say this first: "A big part of this role is advocating for the homeowner. There may be times when you see something differently from the insurance adjuster."' },
+        { type: 'ask', text: 'If someone you\'re working with tells you no, but you genuinely believe you have a strong case, how do you usually handle that, [name]?' },
+        { type: 'rule', text: 'Then casually push back: <i>"What if they\'re pretty firm about their answer?"</i> This is testing persistence and assertiveness — no insurance knowledge required. <b>This is the most important scenario in the screen.</b>' },
+        { type: 'listen', text: '<b>Pushback:</b> Watch whether they hold their position calmly under the second push, or fold the moment there\'s resistance — versus getting defensive or aggressive.' },
+        { type: 'ask', text: 'Let\'s say you\'re working with someone who\'s very short with you and clearly doesn\'t want much conversation. You\'re naturally trying to build a working relationship with them. How would you approach that personality, [name]?' },
+        { type: 'listen', text: '<b>Reading people / adaptability:</b> Can they read people? Do they adapt — or expect everyone to communicate the way they do?' },
+        { type: 'ask', text: 'Let\'s say you\'re feeling pretty confident about how you handled something, but afterward your manager tells you they want you to approach it completely differently next time. How would you take that?' },
+        { type: 'listen', text: '<b>Coachability:</b> Watching for humility, defensiveness, curiosity, and willingness to change.' },
+        { type: 'note', text: 'Don\'t fully sanitize the difficulty — a little self-selection is good. If [name] hears "sometimes you\'ll need to respectfully stand your ground when an adjuster disagrees with you" and immediately thinks "I don\'t want to do that," that\'s useful information, not a bad outcome.' },
+      ],
+      expCards: [
+        { type: 'ask', text: 'For experienced candidates — push one step further on whichever scenario landed hardest: "Tell me about an actual time this happened with an adjuster or homeowner — walk me through it."' },
+      ],
+      noExpCards: [
+        { type: 'note', text: 'For candidates without adjusting experience — same competency, hypothetical framing only. Keep it as "How would you handle that?" rather than asking for a real example.' },
+      ],
+      exitScript: '[name], this role means holding your ground diplomatically when someone pushes back — homeowners and adjusters both. Based on what came up here, I don\'t think this is the right stage for you to take that on.'
+    },
+    {
       id: 'roleexplain',
       label: 'Role explanation',
       section: 'Vetting',
@@ -164,20 +174,20 @@ const SCRIPT_DATA = {
       section: 'Vetting',
       rated: true,
       cards: [
-        { type: 'ask', text: '[name], on a scale of 1–10, how comfortable are you on a steep roof? What\'s the highest you\'ve worked at before?' },
-        { type: 'note', text: '<b>Anyone who answers 7+ with no actual story is inflating.</b> A real number comes with a real memory.' },
+        { type: 'note', text: '<b>Disclaimer:</b> This job requires being comfortable working on steep residential roofs — that\'s non-negotiable for the role. This section is about getting an honest, unprompted read on [name], not steering them toward the "right" answer.' },
+        { type: 'ask', text: '[name], tell me about your experience working on residential roofs. What were you doing up there?' },
+        { type: 'note', text: 'Don\'t mention steep roofs yet — see what [name] volunteers on their own.' },
+        { type: 'ask', text: 'What roof pitches have you personally worked on?' },
+        { type: 'note', text: 'Someone experienced may answer with things like 6/12, 8/12, 10/12. If [name] doesn\'t understand the question, that\'s useful information — you can explain what you mean rather than automatically rejecting them.' },
+        { type: 'ask', text: 'At what roof pitch would you personally stop free-walking the roof and use additional equipment or protection?' },
+        { type: 'listen', text: 'You\'re looking for <b>safety judgment</b>, not a magic number. Someone bragging that they\'ll walk anything isn\'t necessarily a strong candidate.' },
+        { type: 'ask', text: 'What\'s the tallest extension ladder you\'ve personally set up and used, and approximately how high were you working?' },
+        { type: 'note', text: 'This helps distinguish "I\'m fine with heights" from "I\'ve actually done this."' },
+        { type: 'ask', text: 'Optional deeper probe: "What\'s the steepest roof you\'ve personally worked on? Can you describe the pitch and what you used to work on it safely?"' },
+        { type: 'rule', text: '<b>Don\'t educate before testing.</b> Let [name] answer in their own words first — explaining pitch terminology upfront gives away the test.' },
+        { type: 'listen', text: '🟢 <b>Experienced:</b> Gives specific pitches/heights, explains previous roof work, can describe equipment/safety practices, has substantial ladder experience.<br>🟡 <b>Unproven but potentially trainable:</b> Says they\'re comfortable but has little/no actual roof experience. Don\'t treat their "yes" as evidence — they proceed only if you\'re hiring people who can be trained.<br>🔴 <b>Concern:</b> Claims extensive roof experience but can\'t explain pitch, equipment, ladder setup, or what they actually did on the roof; or demonstrates unsafe attitudes.' },
       ],
-      expCards: [
-        { type: 'ask', text: 'How frequently were you going up on roofs — daily, weekly, occasional?' },
-        { type: 'ask', text: 'Walk me through your stamina for it — a full day of rooftop inspections back to back. What\'s that like physically for you?' },
-        { type: 'ask', text: 'What\'s the worst situation you\'ve been in on top of a roof — weather, condition, anything? What happened and how did you handle it?' },
-        { type: 'listen', text: '<b>Strong experienced:</b> Specific stories, comfortable with frequency and physical demand, <b>worst-case story shows composure not avoidance.</b><br><b>Exit:</b> Can\'t produce real stories, vague frequency, or reveals they\'ve rarely been up.' },
-      ],
-      noExpCards: [
-        { type: 'ask', text: 'Tell me about a time you worked in physically demanding or uncomfortable conditions, [name]. What were the conditions and how did you handle it?' },
-        { type: 'note', text: 'Any context counts — <b>manual labor, sports, outdoor work.</b> If [name] <b>can\'t produce any example at all</b>, this is a soft exit.' },
-      ],
-      exitScript: '[name], this role is on rooftops and ladders every single day — that\'s non-negotiable. If physical readiness isn\'t a strong yes right now, it\'s going to be a very tough environment.'
+      exitScript: '[name], this role puts you on steep residential roofs regularly — that\'s core to the job, not an edge case. Based on what you\'ve shared, I\'m not confident that\'s a safe or sustainable fit right now.'
     },
     {
       id: 'selfdirection',
@@ -270,13 +280,48 @@ const SCRIPT_DATA = {
       exitScript: '[name], this role requires flexibility — you\'ll be right sometimes and wrong sometimes. The ability to receive feedback and adjust is what keeps you improving. I\'m concerned about the fit there.'
     },
     {
+      id: 'payexplain',
+      label: 'Pay explanation',
+      section: 'Pay',
+      cards: [
+        { type: 'say', text: 'The easiest way to understand it, [name], is: you have <b>guaranteed weekly pay</b>, then you earn extra money based on the results of each adjuster meeting.' },
+        { type: 'note', text: '<b>1. Guaranteed base pay</b><br>You receive <b>$900/week</b> normally, or <b>$1,000/week</b> if you have 40-foot ladder + steep-roof tool expertise.<br><br>That salary is guaranteed regardless of whether a meeting results in a denial, partial approval, or full approval.<br><br>The base also covers the smaller tasks you\'re expected to run — ITEL appointments, tarps, photo pulls, check pickups, paperwork signatures. <b>You don\'t get paid extra per task</b> for those.' },
+        { type: 'note', text: '<b>2. Then you earn extra for every adjuster meeting</b><br>
+          <table class="comp-table">
+            <tr><th>Meeting Result</th><th>Extra Pay</th></tr>
+            <tr><td>Denial</td><td>$0</td></tr>
+            <tr><td>Partial Approval</td><td class="up">+$50</td></tr>
+            <tr><td>Full Approval</td><td class="up">+$125</td></tr>
+          </table>
+          So on the $900 base, a week with <b>3 full approvals and 2 partial approvals</b> looks like: $900 + (3 × $125 = $375) + (2 × $50 = $100) = <b>$1,375 for the week</b>.<br><br>
+          Important: the performance payout only lands once the <b>estimate is received by the office</b>, and you submit all required photos and documentation. Skip the documentation and you <b>lose the performance payout for that appointment</b> — but never your $900/$1,000 base.' },
+        { type: 'note', text: '<b>3. Big properties pay a little more</b><br>
+          If the property is <b>35+ squares</b>, you get an additional $20 when you achieve an approval:
+          <table class="comp-table">
+            <tr><th>35+ Square Property</th><th>Total Extra Pay</th></tr>
+            <tr><td>Denial</td><td>$0</td></tr>
+            <tr><td>Partial Approval</td><td class="up">$50 + $20 = $70</td></tr>
+            <tr><td>Full Approval</td><td class="up">$125 + $20 = $145</td></tr>
+          </table>
+          That $20 is a <b>premium on top of the normal performance payout</b> — not $20 by itself.' },
+        { type: 'note', text: '<b>4. Two other ways to earn bonuses</b><br>
+          For the smaller/additional appointments — complete <b>20 of them within one calendar month</b> and you get a <b>$100 monthly bonus</b>. 19 = no bonus; 20+ = $100. You\'re responsible for tracking and submitting them.<br><br>
+          You can also generate your own leads by door knocking. Bring in a qualified PA contract that gets filed and <b>isn\'t canceled within 2 weeks</b>, and you get <b>+$100 per contract</b>.<br><br>
+          You also get priority to run the adjuster meeting for a claim you generated yourself. So one self-generated account could produce <b>$100 lead-gen bonus + $125 full-approval payout = $225 extra</b> — or <b>$245</b> if it\'s also a 35+ square property.' },
+        { type: 'note', text: '<b>The bigger picture</b><br>
+          Think of the compensation as: <b>Guaranteed Salary + Meeting Performance Pay + Large Property Premiums + Monthly Task Bonus + Self-Generated Lead Bonuses.</b><br><br>
+          For example, a hypothetical month on the standard base: $900 × 4 weeks = $3,600 base, 10 full approvals × $125 = $1,250, 5 partial approvals × $50 = $250, 3 large-property premiums × $20 = $60, 20 additional tasks = $100 bonus, 2 self-generated contracts × $100 = $200. <b>Total = $5,460 for that month.</b>' },
+        { type: 'listen', text: '<b>Recruiter note:</b> $900/week is the floor. Upside depends heavily on how many adjuster meetings [name] runs and their approval percentage. KPI expectation is <b>42% approval</b> — the structure is designed to reward turning meetings into approvals, not just showing up to appointments.' },
+      ]
+    },
+    {
       id: 'final',
       label: 'Final alignment',
       section: 'Close',
       cards: [
         { type: 'say', text: 'So now that you\'ve seen the role, [name] — it requires detail, conviction, and the ability to stand your ground professionally while still keeping homeowners comfortable.' },
         { type: 'ask', text: 'Does this feel like how you naturally operate — or does it feel like a stretch?' },
-        { type: 'ask', text: 'And — now that you have the full picture, the role, what we\'re looking for, and the updated comp structure — are you still excited about moving forward?' },
+        { type: 'ask', text: 'And — now that you have the full picture of the role and what we\'re looking for — are you still excited about moving forward?' },
       ],
       exitScript: '[name], I\'d rather you have clarity now than figure it out two weeks in. I think we\'re not quite aligned — and that\'s okay.'
     },
